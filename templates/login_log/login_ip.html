@@ -1,0 +1,239 @@
+{% extends "navigation_bar.html" %}
+{% block title %}IP Login - Smart Refrigerator{% endblock %}
+{% load static %}
+{% block page_content %}
+    <link rel="stylesheet" href="{% static "css/color.css" %}">
+    <style>
+        .card-light-blue-bg {
+            background-color: var(--ice-blue); /* 一个浅蓝色 */
+        }
+
+        /* New CSS for hover and selected effects */
+        .card-hover-effect:hover {
+            transform: translateY(-5px); /* Lift effect */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 0 15px rgba(0, 123, 255, 0.5); /* Stronger shadow + Glow effect */
+            border: 3px solid var(--ocean-blue) !important; /* Highlight border */
+            transition: all 0.3s ease; /* Smooth transition */
+            cursor: pointer;
+        }
+    </style>
+
+    <div class="container-fluid">
+        <div class="text-center mb-3">
+            <h1 class="mb-0 text-primary">Login IP</h1>
+        </div>
+        <div class="d-flex flex-column flex-md-row align-items-start gap-3 flex-wrap justify-content-start mb-3">
+            <form method="post" class="d-flex align-items-center gap-3">
+                {% csrf_token %}
+                <select class="form-select" id="order_by" name="order_by"
+                        onchange="this.form.submit()" style="width: auto;">
+                    <option value="0" {% if order_by == "0" %}selected{% endif %}>Reverse</option>
+                    <option value="1" {% if order_by == "1" %}selected{% endif %}>Order</option>
+                </select>
+            </form>
+            <form method="post" class="d-flex align-items-center gap-3" id="filter_form">
+                {% csrf_token %}
+                <div class="form-group d-flex align-items-center gap-2">
+                    <select class="form-select" id="filter_select" name="filter_select" style="width: 150px"
+                            onchange="ChangeFilterSelect()">
+                        <option value="1" {% if filter_select == "1" %}selected{% endif %}>All</option>
+                        <option value="2" {% if filter_select == "2" %}selected{% endif %}>ID</option>
+                        <option value="3" {% if filter_select == "3" %}selected{% endif %}>Blacklist</option>
+                    </select>
+                </div>
+                <input type="{% if filter_select == "2" %}number{% else %}hidden{% endif %}"
+                       placeholder="Example: 1"
+                       class="form-control me-2" id="filter_input" name="filter_input" style="width: 200px"
+                       value="{% if filter_input %}{{ filter_input }}{% endif %}">
+                <select class="form-select" id="blacklist_select" name="blacklist_select"
+                        {% if not filter_select == "3" %}hidden{% endif %} onchange="ChangeFilterSelect()"
+                        style="width: 150px">
+                    <option value="0" {% if blacklist_select == "0" %}selected{% endif %}>Not</option>
+                    <option value="1" {% if blacklist_select == "1" %}selected{% endif %}>Yes</option>
+                </select>
+            </form>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4" id="items_container">
+            {% for login_ip in login_ip_list %}
+                <div class="col">
+                    <div class="card h-100 shadow-sm card-light-blue-bg card-hover-effect">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary">ID: <strong
+                                    class="text-white">{{ login_ip.id }}</strong></h5>
+                            <p class="card-text mb-1"><strong class="text-primary">IP:</strong> <strong
+                                    class="text-white">{{ login_ip.ip }}</strong></p>
+                            <p class="card-text mb-1"><strong class="text-primary">System:</strong> <strong
+                                    class="text-white">{{ login_ip.system }}</strong></p>
+                            <p class="card-text mb-1"><strong class="text-primary">Device:</strong> <strong
+                                    class="text-white">{{ login_ip.device }}</strong></p>
+                            <p class="card-text mb-1"><strong class="text-primary">Failed Count:</strong> <strong
+                                    class="text-white">{{ login_ip.failed_count }}</strong></p>
+                            <p class="card-text mb-1"><strong class="text-primary">BOT:</strong> <strong
+                                    class="{% if login_ip.is_bot == 0 %}text-success{% else %}text-danger{% endif %}">
+                                {% if login_ip.is_bot == 0 %}Not{% else %}Yes{% endif %}</strong></p>
+                            <p class="card-text mb-1"><strong class="text-primary">Blacklist:</strong> <strong
+                                    class="{% if login_ip.is_blacklist == 0 %}text-success{% else %}text-danger{% endif %}">
+                                {% if login_ip.is_blacklist == 0 %}Not{% else %}Yes{% endif %}</strong></p>
+                            <div class="d-flex gap-2 justify-content-center">
+                                <a href="{% url "login_log:blacklist_ip" login_ip.id %}"
+                                   class="btn btn-warning btn-sm text-white fw-bold flex-fill"
+                                   onclick="return confirm('Are you sure you want to {% if login_ip.is_blacklist == 0 %}blacklist{% else %}whitelist{% endif %} this IP?')">
+                                    {% if login_ip.is_blacklist == 0 %}Blacklist{% else %}Whitelist{% endif %}
+                                </a>
+                                <a href="{% url "login_log:delete_login_ip" login_ip.id %}"
+                                   class="btn btn-danger btn-sm text-white fw-bold flex-fill"
+                                   onclick="return confirm('Are you sure you want to delete this login ip?')">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col">
+                    <div class="card h-100 shadow-sm card-light-blue-bg card-hover-effect">
+                        <div class="card-body">
+                            <div style="background-color: var(--ice-blue)" class="alert text-center text-white fw-bold"
+                                 role="alert">
+                                No Data
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% if login_ip_list %}
+            <div class="d-flex justify-content-center mt-4">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination flex-wrap">
+                        {% if login_ip_list.has_previous %}
+                            <li class="page-item">
+                                <form method="post" action="{% url "login_log:login_ip" 1 %}" class="d-inline">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="filter_select"
+                                           value="{% if filter_select %}{{ filter_select }}{% endif %}">
+                                    <input type="hidden" name="filter_input"
+                                           value="{% if filter_input %}{{ filter_input }}{% endif %}">
+                                    <input type="hidden" name="blacklist_select"
+                                           value="{% if blacklist_select %}{{ blacklist_select }}{% endif %}">
+                                    <input class="btn btn-primary rounded-pill px-4 fw-bold" type="submit"
+                                           value="First">
+                                </form>
+                            </li>
+                            <li class="page-item">
+                                <form method="post"
+                                      action="{% url "login_log:login_ip" login_ip_list.previous_page_number %}"
+                                      class="d-inline">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="filter_select"
+                                           value="{% if filter_select %}{{ filter_select }}{% endif %}">
+                                    <input type="hidden" name="filter_input"
+                                           value="{% if filter_input %}{{ filter_input }}{% endif %}">
+                                    <input type="hidden" name="blacklist_select"
+                                           value="{% if blacklist_select %}{{ blacklist_select }}{% endif %}">
+                                    <input class="btn btn-primary rounded-pill px-4 fw-bold" type="submit"
+                                           value="Previous">
+                                </form>
+                            </li>
+                        {% endif %}
+
+                        <li class="page-item disabled">
+                            <span class="btn btn-primary rounded-pill px-4 fw-bold">Page {{ login_ip_list.number }} of {{ login_ip_list.paginator.num_pages }}</span>
+                        </li>
+
+                        {% if login_ip_list.has_next %}
+                            <li class="page-item">
+                                <form method="post"
+                                      action="{% url "login_log:login_ip" login_ip_list.next_page_number %}"
+                                      class="d-inline">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="filter_select"
+                                           value="{% if filter_select %}{{ filter_select }}{% endif %}">
+                                    <input type="hidden" name="filter_input"
+                                           value="{% if filter_input %}{{ filter_input }}{% endif %}">
+                                    <input type="hidden" name="blacklist_select"
+                                           value="{% if blacklist_select %}{{ blacklist_select }}{% endif %}">
+                                    <input class="btn btn-primary rounded-pill px-4 fw-bold" type="submit" value="Next">
+                                </form>
+                            </li>
+                            <li class="page-item">
+                                <form method="post"
+                                      action="{% url "login_log:login_ip" login_ip_list.paginator.num_pages %}"
+                                      class="d-inline">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="filter_select"
+                                           value="{% if filter_select %}{{ filter_select }}{% endif %}">
+                                    <input type="hidden" name="filter_input"
+                                           value="{% if filter_input %}{{ filter_input }}{% endif %}">
+                                    <input type="hidden" name="blacklist_select"
+                                           value="{% if blacklist_select %}{{ blacklist_select }}{% endif %}">
+                                    <input class="btn btn-primary rounded-pill px-4 fw-bold" type="submit" value="Last">
+                                </form>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        {% endif %}
+    </div>
+
+    <script>
+        let timer;
+        const form = document.getElementById("filter_form");
+        document.getElementById("filter_input").addEventListener("input", function () {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                form.submit();
+            }, 600); // 延迟 500ms 提交
+        });
+    </script>
+    <script>
+        function ChangeFilterSelect() {
+            const form = document.getElementById("filter_form");
+            const filterSelect = document.getElementById("filter_select");
+            const filterInput = document.getElementById("filter_input");
+            filterInput.value = null;
+            const blacklistSelect = document.getElementById("blacklist_select");
+
+            if (filterSelect.value == 1) {
+                filterInput.type = "hidden";
+                blacklistSelect.hidden = true;
+                blacklistSelect.value = "0";
+            } else if (filterSelect.value == 2) {
+                filterInput.type = "number";
+                blacklistSelect.hidden = true;
+                blacklistSelect.value = "0";
+            } else if (filterSelect.value == 3) {
+                filterInput.type = "hidden";
+                blacklistSelect.hidden = false;
+            }
+            form.submit();
+        }
+    </script>
+    <script>
+        window.onload = function () {
+            const input = document.getElementById("filter_input");
+
+            // 从 localStorage 读取光标位置
+            const savedPos = localStorage.getItem("cursorPos");
+
+            // 页面加载完成后恢复光标
+            if (savedPos !== null) {
+                setTimeout(() => {
+                    const pos = parseInt(savedPos);
+                    input.focus(); // 让输入框获得焦点
+                    input.setSelectionRange(pos, pos); // 设置光标位置
+                }, 0);
+            }
+
+            // 每次光标移动或点击时保存位置
+            const saveCursor = () => {
+                localStorage.setItem("cursorPos", input.selectionStart);
+            };
+
+            input.addEventListener("click", saveCursor);
+            input.addEventListener("keyup", saveCursor);
+            input.addEventListener("mouseup", saveCursor);
+        };
+    </script>
+{% endblock %}

@@ -1,0 +1,120 @@
+{% extends "backgraound.html" %}
+
+{% block title %}Dashboard - Smart Refrigerator{% endblock %}
+
+{% block content %}
+<button
+        id="sidebarToggleBtn"
+        class="btn btn-primary position-fixed top-0 start-0 m-3"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#sidebarOffcanvas"
+        aria-controls="sidebarOffcanvas"
+        style="z-index: 1050;">
+    <i class="bi bi-list"></i>
+</button>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarOffcanvas"
+     aria-labelledby="sidebarOffcanvasLabel" style="width: 280px;">
+    <div class="offcanvas-header border-bottom fw-bold">
+        <div class="d-flex align-items-center">
+            <i class="bi bi-snow2 fs-3 text-primary me-2"></i>
+            <div>
+                <h5 class="mb-0 text-primary" id="sidebarOffcanvasLabel">
+                    {% if is_superuser %}
+                        Administration Panel
+                    {% else %}
+                        User Panel
+                    {% endif %}
+                </h5>
+                <small class="text-muted">Smart Refrigerator</small>
+            </div>
+        </div>
+    </div>
+    <div class="offcanvas-body px-3 fw-bold">
+        <nav class="nav nav-pills flex-column gap-1">
+            <a class="nav-link d-flex align-items-center {% if request.resolver_match.url_name == 'get_monitoring_display_and_detect_data' %}active{% endif %}"
+               href="{% url 'monitoring:get_monitoring_display_and_detect_data' %}">
+                <i class="bi bi-webcam me-2"></i>
+                <span>Monitoring</span>
+            </a>
+
+            {% if is_superuser %}
+                <a class="nav-link d-flex align-items-center {% if request.resolver_match.url_name == 'get_monitoring_record' %}active{% endif %}"
+                   href="{% url 'monitoring:get_monitoring_record' 1 %}">
+                    <i class="bi bi-card-list me-2"></i>
+                    <span>Monitoring Record</span>
+                </a>
+            {% endif %}
+
+            <a class="nav-link d-flex align-items-center {% if request.resolver_match.url_name == 'temperature_and_humidity_record' %}active{% endif %}"
+               href="{% url 'temperature_and_humidity:temperature_and_humidity_record' 1 %}">
+                <i class="bi bi-thermometer-half me-2"></i>
+                <span>Temperature and Humidity Record</span>
+            </a>
+
+            {% if is_superuser %}
+                <a class="nav-link d-flex align-items-center {% if request.resolver_match.url_name == 'login_ip' %}active{% endif %}"
+                   href="{% url 'login_log:login_ip' 1 %}">
+                    <i class="bi bi-box-arrow-in-right me-2"></i>
+                    <span>Login IP</span>
+                </a>
+
+                <a class="nav-link d-flex align-items-center {% if request.resolver_match.url_name == 'login_record' %}active{% endif %}"
+                   href="{% url 'login_log:login_record' 1 %}">
+                    <i class="bi bi-clipboard2-data me-2"></i>
+                    <span>Login Record</span>
+                </a>
+
+                <a class="nav-link d-flex align-items-center {% if request.resolver_match.url_name == 'user_list' %}active{% endif %}"
+                   href="{% url 'user:user_list' 1 %}">
+                    <i class="bi bi-people me-2"></i>
+                    <span>User List</span>
+                </a>
+            {% endif %}
+
+            <a class="nav-link d-flex align-items-center {% if request.resolver_match.url_name == 'user_info' %}active{% endif %}"
+               href="{% url 'user:user_info' %}">
+                <i class="bi bi-person me-2"></i>
+                <span>Your Information</span>
+            </a>
+
+            <a class="nav-link d-flex align-items-center {% if request.resolver_match.url_name == 'get_chat' %}active{% endif %}"
+               href="{% url 'ai_assistant:get_chat' %}">
+                <i class="bi bi-chat-dots me-2"></i>
+                <span>AI Assistant</span>
+            </a>
+
+            <a class="nav-link d-flex align-items-center" href="{% url 'account:logout' %}">
+                <i class="bi bi-box-arrow-right me-2"></i>
+                <span>Logout</span>
+            </a>
+        </nav>
+    </div>
+</div>
+
+<div class="d-flex justify-content-center mt-5">
+    <div class="card shadow-lg border-0 rounded-4 position-relative w-100" style="max-width: 1600px;">
+        <div class="card-body px-4 py-4" style="overflow-x: auto;">
+            {% block page_content %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    document.addEventListener('DOMContentLoaded', function () {
+        var offcanvasElement = document.getElementById('sidebarOffcanvas');
+        var toggleButton = document.getElementById('sidebarToggleBtn');
+        if (!offcanvasElement || !toggleButton) {
+            return;
+        }
+        offcanvasElement.addEventListener('show.bs.offcanvas', function () {
+            toggleButton.classList.add('d-none');
+        });
+        offcanvasElement.addEventListener('hidden.bs.offcanvas', function () {
+            toggleButton.classList.remove('d-none');
+        });
+    });
+{% endblock %}

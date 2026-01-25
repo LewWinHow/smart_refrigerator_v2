@@ -1,0 +1,317 @@
+{% extends "navigation_bar.html" %}
+{% block title %}Monitoring Record - Smart Refrigerator{% endblock %}
+{% load static %}
+{% block page_content %}
+    <link rel="stylesheet" href="{% static 'css/color.css' %}">
+    <style>
+        .card-light-blue-bg {
+            background-color: var(--ice-blue); /* 一个浅蓝色 */
+        }
+
+        /* New CSS for hover and selected effects */
+        .card-hover-effect:hover {
+            transform: translateY(-5px); /* Lift effect */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 0 15px rgba(0, 123, 255, 0.5); /* Stronger shadow + Glow effect */
+            border: 3px solid var(--ocean-blue) !important; /* Highlight border */
+            transition: all 0.3s ease; /* Smooth transition */
+            cursor: pointer;
+        }
+    </style>
+
+    <div class="container-fluid">
+        <div class="text-center mb-3">
+            <h1 class="mb-0 text-primary">Monitoring Record</h1>
+        </div>
+        <div class="d-flex flex-column flex-md-row align-items-start gap-3 flex-wrap justify-content-start mb-3">
+            <form method="post" class="d-flex align-items-center gap-3 flex-wrap">
+                {% csrf_token %}
+                <select class="form-select" id="order_by" name="order_by"
+                        onchange="this.form.submit()" style="width: auto;">
+                    <option value="0" {% if order_by == "0" %}selected{% endif %}>Reverse</option>
+                    <option value="1" {% if order_by == "1" %}selected{% endif %}>Order</option>
+                </select>
+            </form>
+            <form method="post" class="d-flex align-items-center gap-3 flex-wrap" id="filter_form">
+                {% csrf_token %}
+                <div class="form-group d-flex align-items-center gap-2">
+                    <select class="form-select" id="filter_select" name="filter_select" style="width: 150px"
+                            onchange="ChangeFilterSelect()">
+                        <option value="1" {% if filter_select == "1" %}selected{% endif %}>All</option>
+                        <option value="2" {% if filter_select == "2" %}selected{% endif %}>Name</option>
+                        <option value="3" {% if filter_select == "3" %}selected{% endif %}>Record Time</option>
+                    </select>
+                </div>
+                <input type="{% if filter_select == "2" %}text{% elif filter_select == "3" %}datetime-local{% else %}hidden{% endif %}"
+                       placeholder="Example: apple"
+                       class="form-control me-2" id="filter_input" name="filter_input" style="width: 200px"
+                       value="{% if filter_input %}{{ filter_input }}{% endif %}">
+                {% if filter_select == "3" %}
+                    <span class="me-2 fw-bold text-primary">to</span>
+                {% endif %}
+                <input type="{% if filter_select == "3" %}datetime-local{% else %}hidden{% endif %}"
+                       class="form-control me-2" id="filter_input_second" name="filter_input_second"
+                       style="width: 200px"
+                       value="{% if filter_input_second %}{{ filter_input_second }}{% endif %}">
+            </form>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4" id="items_container">
+            {% for detect_record in detect_record_list %}
+                <div class="col">
+                    <div class="card h-100 shadow-sm card-light-blue-bg card-hover-effect">
+                        <button type="button" class="btn btn-link p-0"
+                                onclick="showImageModal('{{ detect_record.image.url }}')">
+                            <img src="{{ detect_record.image.url }}"
+                                 class="card-img-top" alt="Detect Image" style="height: 150px; object-fit: contain;">
+                        </button>
+                        <div class="card-body">
+                            <h5 class="card-title text-primary"><strong
+                                    class="text-white">{{ detect_record.item }}</strong></h5>
+                            <p class="card-text mb-1"><strong class="text-primary">ID:</strong> <strong
+                                    class="text-white">{{ detect_record.id }}</strong></p>
+                            <p class="card-text mb-1"><strong class="text-primary">User:</strong> <strong
+                                    class="text-white">{{ detect_record.user }}</strong></p>
+                            <p class="card-text mb-1"><strong class="text-primary">Action:</strong> <strong
+                                    class="text-white">{% if detect_record.action == 1 %}Put In{% else %}Take
+                                Out{% endif %}</strong></p>
+                            <p class="card-text mb-3"><strong class="text-primary">Record Time:</strong> <strong
+                                    class="text-white">{{ detect_record.record_time }}</strong></p>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col">
+                    <div class="card h-100 shadow-sm card-light-blue-bg card-hover-effect">
+                        <div class="card-body">
+                            <div style="background-color: var(--ice-blue)" class="alert text-center text-white fw-bold"
+                                 role="alert">
+                                No Data
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+
+
+        {% if detect_record_list %}
+            <div class="d-flex justify-content-center mt-4">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination flex-wrap">
+                        {% if detect_record_list.has_previous %}
+                            <li class="page-item">
+                                <form method="post"
+                                      action="{% url "monitoring:get_monitoring_record" 1 %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" id="filter_select" name="filter_select"
+                                           value="{% if filter_select %}{{ filter_select }}{% endif %}">
+                                    <input type="hidden" id="filter_input" name="filter_input"
+                                           value="{% if filter_input %}{{ filter_input }}{% endif %}">
+                                    <input type="hidden" id="filter_input_second" name="filter_input_second"
+                                           value="{% if filter_input_second %}{{ filter_input_second }}{% endif %}">
+                                    <input type="hidden" id="order_by" name="order_by"
+                                           value="{% if order_by %}{{ order_by }}{% endif %}">
+                                    <input class="btn btn-primary rounded-pill px-4 fw-bold" type="submit"
+                                           value="First">
+                                </form>
+                            </li>
+                            <li class="page-item">
+                                <form method="post"
+                                      action="{% url "monitoring:get_monitoring_record" detect_record_list.previous_page_number %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" id="filter_select" name="filter_select"
+                                           value="{% if filter_select %}{{ filter_select }}{% endif %}">
+                                    <input type="hidden" id="filter_input" name="filter_input"
+                                           value="{% if filter_input %}{{ filter_input }}{% endif %}">
+                                    <input type="hidden" id="filter_input_second" name="filter_input_second"
+                                           value="{% if filter_input_second %}{{ filter_input_second }}{% endif %}">
+                                    <input type="hidden" id="order_by" name="order_by"
+                                           value="{% if order_by %}{{ order_by }}{% endif %}">
+                                    <input class="btn btn-primary rounded-pill px-4 fw-bold " type="submit"
+                                           value="Previous">
+                                </form>
+                            </li>
+                        {% endif %}
+
+                        <li class="page-item disabled">
+                            <span class="btn btn-primary rounded-pill px-4 fw-bold">
+                                Page {{ detect_record_list.number }} of {{ detect_record_list.paginator.num_pages }}
+                            </span>
+                        </li>
+
+                        {% if detect_record_list.has_next %}
+                            <li class="page-item">
+                                <form method="post"
+                                      action="{% url "monitoring:get_monitoring_record" detect_record_list.next_page_number %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" id="filter_select" name="filter_select"
+                                           value="{% if filter_select %}{{ filter_select }}{% endif %}">
+                                    <input type="hidden" id="filter_input" name="filter_input"
+                                           value="{% if filter_input %}{{ filter_input }}{% endif %}">
+                                    <input type="hidden" id="filter_input_second" name="filter_input_second"
+                                           value="{% if filter_input_second %}{{ filter_input_second }}{% endif %}">
+                                    <input type="hidden" id="order_by" name="order_by"
+                                           value="{% if order_by %}{{ order_by }}{% endif %}">
+                                    <input class="btn btn-primary rounded-pill px-4 fw-bold" type="submit" value="Next">
+                                </form>
+                            </li>
+                            <li class="page-item">
+                                <form method="post"
+                                      action="{% url "monitoring:get_monitoring_record" detect_record_list.paginator.num_pages %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" id="filter_select" name="filter_select"
+                                           value="{% if filter_select %}{{ filter_select }}{% endif %}">
+                                    <input type="hidden" id="filter_input" name="filter_input"
+                                           value="{% if filter_input %}{{ filter_input }}{% endif %}">
+                                    <input type="hidden" id="filter_input_second" name="filter_input_second"
+                                           value="{% if filter_input_second %}{{ filter_input_second }}{% endif %}">
+                                    <input type="hidden" id="order_by" name="order_by"
+                                           value="{% if order_by %}{{ order_by }}{% endif %}">
+                                    <input class="btn btn-primary rounded-pill px-4 fw-bold" type="submit" value="Last">
+                                </form>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        {% endif %}
+    </div>
+
+    <script>
+        let timer;
+        const form = document.getElementById("filter_form");
+
+        const filterSelect = document.getElementById('filter_select');
+        if (filterSelect.value == "2") {
+            document.getElementById("filter_input").addEventListener("input", function () {
+                clearTimeout(timer);
+                timer = setTimeout(() => {
+                    form.submit();
+                }, 1000);
+            });
+        } else {
+            document.getElementById("filter_input").addEventListener("input", function () {
+                clearTimeout(timer);
+                timer = setTimeout(() => {
+                    form.submit();
+                }, 500); // 延迟 500ms 提交
+            });
+        }
+
+        document.getElementById("filter_input_second").addEventListener("input", function () {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                form.submit();
+            }, 500); // 延迟 500ms 提交
+        });
+
+
+        function ChangeFilterSelect() {
+            const form = document.getElementById("filter_form");
+            const filterSelect = document.getElementById('filter_select');
+            const filterInput = document.getElementById('filter_input');
+            filterInput.value = null;
+            const filterInputSecond = document.getElementById('filter_input_second');
+            filterInputSecond.value = null;
+
+            if (filterSelect.value == 1) {
+                filterInput.type = "hidden";
+                filterInputSecond.type = "hidden";
+            } else if (filterSelect.value == 2) {
+                filterInput.type = "text";
+                filterInputSecond.type = "hidden";
+            } else if (filterSelect.value == 3) {
+                filterInput.type = "datetime-local";
+                filterInputSecond.type = "datetime-local";
+            }
+            form.submit();
+        }
+    </script>
+    <script>
+        let timer;
+        const filterForm = document.getElementById("filter_form");
+        const filterInput = document.getElementById("filter_input");
+        const input2 = document.getElementById("filter_input_second");
+
+        function handleChange() {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                filterForm.submit();
+            }, 600);
+        }
+
+        // 对 datetime-local，建议用 change 事件 + input 事件都监听
+        filterInput.addEventListener("input", handleChange);
+        filterInput.addEventListener("change", handleChange);
+
+        // 对 datetime-local，建议用 change 事件 + input 事件都监听
+        input2.addEventListener("input", handleChange);
+        input2.addEventListener("change", handleChange);
+    </script>
+    <script>
+        window.onload = function () {
+            const input = document.getElementById("filter_input");
+
+            // 从 localStorage 读取光标位置
+            const savedPos = localStorage.getItem("cursorPos");
+
+            // 页面加载完成后恢复光标
+            if (savedPos !== null) {
+                setTimeout(() => {
+                    const pos = parseInt(savedPos);
+                    input.focus(); // 让输入框获得焦点
+                    input.setSelectionRange(pos, pos); // 设置光标位置
+                }, 0);
+            }
+
+            // 每次光标移动或点击时保存位置
+            const saveCursor = () => {
+                localStorage.setItem("cursorPos", input.selectionStart);
+            };
+
+            input.addEventListener("click", saveCursor);
+            input.addEventListener("keyup", saveCursor);
+            input.addEventListener("mouseup", saveCursor);
+        };
+    </script>
+    <script>
+        function showImageModal(imageUrl) {
+            // Add error handling for missing elements
+            const modalImage = document.getElementById('modalImage');
+            const imageModalElement = document.getElementById('imageModal');
+
+            if (!imageUrl || imageUrl.trim() === '') {
+                console.error('Invalid image URL provided to showImageModal:', imageUrl);
+                return;
+            }
+
+            if (!modalImage) {
+                console.error('Modal image element not found (ID: modalImage)');
+                return;
+            }
+            if (!imageModalElement) {
+                console.error('Modal element not found (ID: imageModal)');
+                return;
+            }
+            if (typeof bootstrap === 'undefined' || typeof bootstrap.Modal === 'undefined') {
+                console.error('Bootstrap Modal component is not available');
+                return;
+            }
+
+            // Set image URL and show modal
+            modalImage.src = imageUrl;
+            const imageModal = new bootstrap.Modal(imageModalElement);
+            imageModal.show();
+        }
+    </script>
+
+    <!-- Image Modal -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-body text-center">
+                <img src="" id="modalImage" class="img-fluid" alt="Enlarged Detected Item">
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'backgraound.html' %}
+
+{% block title %}Verification Code - Smart Refrigerator{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center">
+    <div class="card shadow-lg border-0 rounded-4 position-relative w-100" style="max-width: 640px;">
+        <div class="card-body px-5 py-5 fw-bold" style="padding-top: 4rem; padding-bottom: 4rem;">
+            <div class="text-center mb-4">
+                <i class="bi bi-snow2 fs-1 text-primary"></i>
+                <h2 class="mb-1 text-primary">Smart Refrigerator<br>Monitoring System</h2>
+                <p class="text-muted mb-0">Please enter your verification code</p>
+            </div>
+
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label class="form-label text-primary" for="verify_code">Verification Code</label>
+                    <div class="input-group">
+                        <span class="input-group-text text-primary">
+                            <i class="bi bi-shield-lock-fill"></i>
+                        </span>
+                        <input type="text"
+                               class="form-control"
+                               name="verification_code"
+                               placeholder="Example: 4ZC0ce"
+                               required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 mb-3 fw-bold">
+                    Submit
+                </button>
+
+                <div class="text-center">
+                    <a href="{% url 'account:forgot_password' %}" class="link-primary">
+                        <i class="bi bi-arrow-left"></i> Back to Forgot Password
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <!-- Any specific scripts for this page will go here -->
+{% endblock %}

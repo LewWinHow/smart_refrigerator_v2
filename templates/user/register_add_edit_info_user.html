@@ -1,0 +1,376 @@
+{% extends 'backgraound.html' %}
+
+{% block title %}{% if page == "register" %}Register{% elif page == "add_user" %}Add User{% elif page == "edit_user" %}
+    Edit User{% else %}User Information{% endif %} - Smart Refrigerator{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-center">
+        <div class="card shadow-lg border-0 rounded-4 position-relative w-100" style="max-width: 640px;">
+            <div class="card-body px-5 py-5 fw-bold" style="padding-top: 4rem; padding-bottom: 4rem;">
+                <div class="text-center mb-4">
+                    <i class="bi bi-snow2 fs-1 text-primary"></i>
+                    <h2 class="mb-1 text-primary">Smart Refrigerator<br>Monitoring System</h2>
+                    <p class="text-muted mb-0">
+                        {% if page == "register" %}
+                            Create your account
+                        {% elif page == "add_user" %}
+                            Add a new user
+                        {% elif page == "edit_user" %}
+                            Edit user information
+                        {% else %}
+                            Your information
+                        {% endif %}
+                    </p>
+                </div>
+
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label class="form-label text-primary">Username *</label>
+                        <div class="input-group">
+                            <span class="input-group-text text-primary">
+                                <i class="bi bi-person-fill"></i>
+                            </span>
+                            <input type="text"
+                                   class="form-control"
+                                   name="username"
+                                   placeholder="Example: lewwinhow"
+                                   pattern="[a-z0-9]+"
+                                   title="Username ust contain at lowercase letter and number. Spaces are not allowed."
+                                   maxlength="150"
+                                   value="{% if page == 'register' or page == 'add_user' %}{% else %}{% if user.username %}{{ user.username }}{% endif %}{% endif %}"
+                                   required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-primary" for="password">
+                            {% if page == "register" or page == "add_user" %}Password *{% else %}New Password *
+                                {% if page == 'edit_user' %}(use the old password if blank)
+                                {% endif %}{% endif %}</label>
+                        <div class="input-group">
+                            <span class="input-group-text text-primary">
+                                <i class="bi bi-lock-fill"></i>
+                            </span>
+                            <input type="password"
+                                   class="form-control"
+                                   id="password"
+                                   name="password"
+                                   minlength="8"
+                                   maxlength="128"
+                                   pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s])[^\s]+"
+                                   title="Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character. Spaces are not allowed."
+                                   placeholder="Example: (XiaoHao6070)"
+                                   {% if page == "register" or page == "add_user" %}required{% endif %}>
+                            <button class="btn btn-outline-primary" type="button" id="togglePassword">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-primary" for="confirm_password">Confirm Password *
+                            {% if page == 'edit_user' %}(use the old password if blank){% endif %}</label>
+                        <div class="input-group">
+                            <span class="input-group-text text-primary">
+                                <i class="bi bi-lock-fill"></i>
+                            </span>
+                            <input type="password"
+                                   class="form-control"
+                                   id="confirm_password"
+                                   name="confirm_password"
+                                   minlength="8"
+                                   maxlength="128"
+                                   pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s])[^\s]+"
+                                   title="Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character. Spaces are not allowed."
+                                   placeholder="Example: (XiaoHao6070)"
+                                   {% if page == "register" or page == "add_user" %}required{% endif %}>
+                            <button class="btn btn-outline-primary" type="button" id="toggleConfirmPassword">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-primary">First Name *</label>
+                        <div class="input-group">
+                            <span class="input-group-text text-primary">
+                                <i class="bi bi-person-fill"></i>
+                            </span>
+                            <input type="text"
+                                   class="form-control"
+                                   name="first_name"
+                                   maxlength="150"
+                                   placeholder="Example: Win How"
+                                   value="{% if page == 'register' or page == 'add_user' %}{% else %}{% if user.first_name %}{{ user.first_name }}{% endif %}{% endif %}"
+                                   required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-primary">Last Name *</label>
+                        <div class="input-group">
+                            <span class="input-group-text text-primary">
+                                <i class="bi bi-person-fill"></i>
+                            </span>
+                            <input type="text"
+                                   class="form-control"
+                                   name="last_name"
+                                   maxlength="150"
+                                   placeholder="Example: Lew"
+                                   value="{% if page == 'register' or page == 'add_user' %}{% else %}{% if user.last_name %}{{ user.last_name }}{% endif %}{% endif %}"
+                                   required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-primary">Birthday</label>
+                            <div class="input-group">
+                                <span class="input-group-text text-primary">
+                                    <i class="bi bi-calendar-fill"></i>
+                                </span>
+                                <input type="date"
+                                       class="form-control"
+                                       name="birthday"
+                                       value="{% if page == 'register' or page == 'add_user' %}{% else %}{% if user.birthday %}{{ user.birthday|date:'Y-m-d' }}{% endif %}{% endif %}">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-primary">Gender</label>
+                            <div class="input-group">
+                                <span class="input-group-text text-primary">
+                                    <i class="bi bi-gender-ambiguous"></i>
+                                </span>
+                                <select class="form-select" name="gender">
+                                    <option value="">None</option>
+                                    <option value="1"
+                                            {% if page == "register" or page == "add_user" %}{% else %}{% if user.gender == 1 %}selected
+                                            {% endif %}{% endif %}>Male
+                                    </option>
+                                    <option value="2"
+                                            {% if page == "register" or page == "add_user" %}{% else %}{% if user.gender == 2 %}selected
+                                            {% endif %}{% endif %}>Female
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-primary">Email *</label>
+                            <div class="input-group">
+                                <span class="input-group-text text-primary">
+                                    <i class="bi bi-envelope-fill"></i>
+                                </span>
+                                <input type="email"
+                                       class="form-control"
+                                       name="email"
+                                       placeholder="Example: xiaohao6070@gmail.com"
+                                       value="{% if page == 'register' or page == 'add_user' %}{% else %}{% if user.email %}{{ user.email }}{% endif %}{% endif %}"
+                                       required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-primary">Phone</label>
+                            <div class="input-group">
+                                <span class="input-group-text text-primary">
+                                    <i class="bi bi-telephone-fill"></i>
+                                </span>
+                                <input type="tel"
+                                       class="form-control"
+                                       name="phone"
+                                       placeholder="Example: 60126800264"
+                                       pattern="[1-9][0-9]{7,14}"
+                                       title="Please input valid format."
+                                       value="{% if page == 'register' or page == 'add_user' %}{% else %}{% if user.phone %}{{ user.phone }}{% endif %}{% endif %}">
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if page == "edit_user" or page == "add_user" or page == "user_info" and user.is_superuser == 1 %}
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label text-primary">Superuser</label>
+                                <div class="input-group">
+                                <span class="input-group-text text-primary">
+                                    <i class="bi bi-shield-lock-fill"></i>
+                                </span>
+                                    <select class="form-select" name="is_superuser">
+                                        <option value="0"
+                                                {% if page == "register" or page == "add_user" %}{% else %}{% if user.is_superuser == 0 %}selected
+                                                {% endif %}{% endif %}>No
+                                        </option>
+                                        <option value="1"
+                                                {% if page == "register" or page == "add_user" %}{% else %}{% if user.is_superuser == 1 %}selected
+                                                {% endif %}{% endif %}>Yes
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label text-primary">Staff</label>
+                                <div class="input-group">
+                                <span class="input-group-text text-primary">
+                                    <i class="bi bi-briefcase-fill"></i>
+                                </span>
+                                    <select class="form-select" name="is_staff">
+                                        <option value="0"
+                                                {% if page == "register" or page == "add_user" %}{% else %}{% if user.is_staff == 0 %}selected
+                                                {% endif %}{% endif %}>No
+                                        </option>
+                                        <option value="1"
+                                                {% if page == "register" or page == "add_user" %}{% else %}{% if user.is_staff == 1 %}selected
+                                                {% endif %}{% endif %}>Yes
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label text-primary">Active</label>
+                                <div class="input-group">
+                                <span class="input-group-text text-primary">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                </span>
+                                    <select class="form-select" name="is_active">
+                                        <option value="1"
+                                                {% if page == "register" or page == "add_user" %}{% else %}{% if user.is_active == 1 %}selected
+                                                {% endif %}{% endif %}>Yes
+                                        </option>
+                                        <option value="0"
+                                                {% if page == "register" or page == "add_user" %}{% else %}{% if user.is_active == 0 %}selected
+                                                {% endif %}{% endif %}>No
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if page == "edit_user" or page == "user_info" %}
+                        <div class="mb-3 text-center">
+                            <label class="form-label text-primary d-block">Current Profile Image</label>
+                            <img src="{{ user.profile_image.url }}"
+                                 alt="Current Profile Image"
+                                 class="img-fluid rounded-3 shadow-sm"
+                                 style="max-width: 150px;">
+                        </div>
+                    {% endif %}
+
+                    <div class="mb-3">
+                        <label class="form-label text-primary" for="profile_image">Upload Profile Image *</label>
+                        <div class="input-group">
+                            <span class="input-group-text text-primary">
+                                <i class="bi bi-camera-fill"></i>
+                            </span>
+                            <input type="file"
+                                   class="form-control"
+                                   id="profile_image"
+                                   name="profile_image"
+                                   accept="image/*"
+                                   {% if page == "register" %}required{% endif %}>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 mb-3 fw-bold">
+                        {% if page == "register" %}
+                            Register
+                        {% elif page == "add_user" %}
+                            Add User
+                        {% elif page == "edit_user" %}
+                            Save Change
+                        {% else %}
+                            Update Information
+                        {% endif %}
+                    </button>
+
+                    <div class="text-center">
+                        {% if page == "register" %}
+                            <a href="{% url 'account:login' %}" class="link-primary">
+                                <i class="bi bi-arrow-left me-1"></i>Back to Login
+                            </a>
+                        {% elif page == "add_user" or page == "edit_user" %}
+                            <a href="{% url 'user:user_list' 1 %}" class="link-primary">
+                                <i class="bi bi-arrow-left me-1"></i>Back to User List
+                            </a>
+                        {% else %}
+                            <a href="{% url 'monitoring:get_monitoring_display_and_detect_data' %}"
+                               class="link-primary">
+                                <i class="bi bi-arrow-left me-1"></i>Back to Monitoring Page
+                            </a>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    function setupPasswordToggle(inputId, buttonId) {
+    const input = document.getElementById(inputId);
+    const button = document.getElementById(buttonId);
+    if (!input || !button) {
+    return;
+    }
+    const icon = button.querySelector('i');
+    button.addEventListener('click', function () {
+    if (input.type === 'password') {
+    input.type = 'text';
+    icon.classList.replace('bi-eye', 'bi-eye-slash');
+    } else {
+    input.type = 'password';
+    icon.classList.replace('bi-eye-slash', 'bi-eye');
+    }
+    });
+    }
+
+    setupPasswordToggle('password', 'togglePassword');
+    setupPasswordToggle('confirm_password', 'toggleConfirmPassword');
+
+    const password = document.getElementById("password");
+    const confirmPassword = document.getElementById("confirm_password");
+
+    function validatePassword() {
+    if (confirmPassword.value === "") {
+    confirmPassword.setCustomValidity(""); // 先清空
+    } else if (password.value !== confirmPassword.value) {
+    confirmPassword.setCustomValidity("Password does not match.");
+    } else {
+    confirmPassword.setCustomValidity("");
+    }
+    }
+
+    // 实时校验
+    password.addEventListener("input", validatePassword);
+    confirmPassword.addEventListener("input", validatePassword);
+
+    const fileInput = document.getElementById("profile_image");
+    const MAX_SIZE = 100 * 1024 * 1024; // 100MB
+
+    fileInput.addEventListener("change", () => {
+    fileInput.setCustomValidity(""); // 先清空错误
+
+    if (fileInput.files.length === 0) return;
+
+    const file = fileInput.files[0];
+
+    // ❌ 文件不是图片（双保险）
+    if (!file.type.startsWith("image/")) {
+    fileInput.setCustomValidity("Only image files can be uploaded.");
+    }
+    // ❌ 超过 100MB
+    else if (file.size > MAX_SIZE) {
+    fileInput.setCustomValidity("Image size cannot exceed 100MB");
+    }
+
+    // 立刻显示提示（和 required 一样）
+    fileInput.reportValidity();
+    });
+{% endblock %}

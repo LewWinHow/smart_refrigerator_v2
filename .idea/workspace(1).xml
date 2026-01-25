@@ -1,0 +1,717 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e76429f0-ad2e-42b9-b89d-18e3916fba28" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="Jupyter Notebook" />
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/deep_sort_pytorch" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="30Be7BtJJPwxv9GOHFw7RvrCDNV" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Django Server.smart_refrigerator.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.clear_detect_frame.executor&quot;: &quot;Run&quot;,
+    &quot;Python.cv_draw_and_save.executor&quot;: &quot;Run&quot;,
+    &quot;Python.detect_face (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.detect_face.executor&quot;: &quot;Run&quot;,
+    &quot;Python.detect_item.executor&quot;: &quot;Run&quot;,
+    &quot;Python.detect_utils.executor&quot;: &quot;Run&quot;,
+    &quot;Python.dev_server (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.draw_and_save_image (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.face_detect.executor&quot;: &quot;Run&quot;,
+    &quot;Python.face_utils.executor&quot;: &quot;Run&quot;,
+    &quot;Python.get_face_embedding.executor&quot;: &quot;Run&quot;,
+    &quot;Python.item_detect.executor&quot;: &quot;Run&quot;,
+    &quot;Python.json_to_yaml.executor&quot;: &quot;Run&quot;,
+    &quot;Python.llm.executor&quot;: &quot;Run&quot;,
+    &quot;Python.llm_test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.llm_test2.executor&quot;: &quot;Run&quot;,
+    &quot;Python.make_yolo_training_plot.executor&quot;: &quot;Run&quot;,
+    &quot;Python.manage.executor&quot;: &quot;Run&quot;,
+    &quot;Python.qq.executor&quot;: &quot;Run&quot;,
+    &quot;Python.run_waitress_dev (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.run_waitress_dev.executor&quot;: &quot;Run&quot;,
+    &quot;Python.save_image.executor&quot;: &quot;Run&quot;,
+    &quot;Python.send_camera_stream.executor&quot;: &quot;Run&quot;,
+    &quot;Python.send_command.executor&quot;: &quot;Run&quot;,
+    &quot;Python.send_email_with_food_expired.executor&quot;: &quot;Run&quot;,
+    &quot;Python.serve.executor&quot;: &quot;Run&quot;,
+    &quot;Python.trainer.executor&quot;: &quot;Run&quot;,
+    &quot;Python.views.executor&quot;: &quot;Run&quot;,
+    &quot;Python.yolo_detect.executor&quot;: &quot;Run&quot;,
+    &quot;Python.yolo_train.executor&quot;: &quot;Run&quot;,
+    &quot;Python.yolo_training.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.pycharm.django.structure.promotion.once.per.project&quot;: &quot;true&quot;,
+    &quot;django.template.preview.state&quot;: &quot;SHOW_EDITOR&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/xiaoh/Downloads/smart_refrigerator&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
+    ]
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\xiaoh\Downloads\smart_refrigerator\ai_model\yolo_model" />
+      <recent name="C:\Users\xiaoh\Downloads\smart_refrigerator\templates\item" />
+      <recent name="C:\Users\xiaoh\Downloads\smart_refrigerator\item" />
+      <recent name="C:\Users\xiaoh\Downloads\smart_refrigerator\YOLO_training" />
+      <recent name="C:\Users\xiaoh\Downloads\smart_refrigerator\ai_model_training" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\xiaoh\Downloads\smart_refrigerator\templates\temperature_humidity" />
+      <recent name="C:\Users\xiaoh\Downloads\smart_refrigerator\templates\login_log" />
+      <recent name="C:\Users\xiaoh\Downloads\smart_refrigerator\tools" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="你好" />
+    </option>
+  </component>
+  <component name="RunManager" selected="Django Server.smart_refrigerator">
+    <configuration name="detect_item" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="smart_refrigerator" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tools" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tools/detect_item.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="detect_item" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="smart_refrigerator" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tools" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tools/detect_item.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="dev_server (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="smart_refrigerator" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/dev_server.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="dev_server (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="smart_refrigerator" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/dev_server.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="llm_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="smart_refrigerator" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/llm_test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="llm_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="smart_refrigerator" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/llm_test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="manage" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="smart_refrigerator" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/manage.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="manage" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="smart_refrigerator" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/manage.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="run_waitress_dev" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="smart_refrigerator" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\xiaoh\Downloads\smart_refrigerator" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="run_waitress_dev.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="run_waitress_dev" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="smart_refrigerator" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\xiaoh\Downloads\smart_refrigerator" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="run_waitress_dev.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="send_command" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="smart_refrigerator" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/send_command.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="send_command" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="smart_refrigerator" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/send_command.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="smart_refrigerator" type="Python.DjangoServer" factoryName="Django server">
+      <module name="smart_refrigerator" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="smart_refrigerator.settings" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="smart_refrigerator" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="127.0.0.1" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="smart_refrigerator" type="Python.DjangoServer" factoryName="Django server">
+      <module name="smart_refrigerator" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="smart_refrigerator.settings" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="10.147.18.196" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="smart_refrigerator" type="Python.DjangoServer" factoryName="Django server">
+      <module name="smart_refrigerator" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="smart_refrigerator.settings" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="smart_refrigerator" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="10.147.18.196" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Django Server.smart_refrigerator" />
+      <item itemvalue="Python.run_waitress_dev" />
+      <item itemvalue="Python.detect_item" />
+      <item itemvalue="Python.dev_server (1)" />
+      <item itemvalue="Python.llm_test" />
+      <item itemvalue="Python.manage" />
+      <item itemvalue="Python.send_command" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.send_command" />
+        <item itemvalue="Python.manage" />
+        <item itemvalue="Python.llm_test" />
+        <item itemvalue="Python.dev_server (1)" />
+        <item itemvalue="Python.detect_item" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-PY-252.27397.106" />
+        <option value="bundled-python-sdk-4e2b1448bda8-9a97661f3031-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.27397.106" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e76429f0-ad2e-42b9-b89d-18e3916fba28" name="Changes" comment="" />
+      <created>1753105223988</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1753105223988</updated>
+      <workItem from="1753105225050" duration="13853000" />
+      <workItem from="1753143466246" duration="11516000" />
+      <workItem from="1753158529640" duration="17475000" />
+      <workItem from="1753182188897" duration="7843000" />
+      <workItem from="1753250029987" duration="4778000" />
+      <workItem from="1753262769610" duration="8006000" />
+      <workItem from="1753282800275" duration="11636000" />
+      <workItem from="1753317428416" duration="4052000" />
+      <workItem from="1753323423447" duration="8218000" />
+      <workItem from="1753335961648" duration="7806000" />
+      <workItem from="1753344489602" duration="5404000" />
+      <workItem from="1753365146466" duration="9098000" />
+      <workItem from="1753592737071" duration="12673000" />
+      <workItem from="1753614245032" duration="357000" />
+      <workItem from="1753628421151" duration="76000" />
+      <workItem from="1753628752936" duration="813000" />
+      <workItem from="1753677428377" duration="4425000" />
+      <workItem from="1753706784593" duration="1938000" />
+      <workItem from="1753750467083" duration="405000" />
+      <workItem from="1753763355121" duration="4359000" />
+      <workItem from="1753768251522" duration="13969000" />
+      <workItem from="1753805125520" duration="4147000" />
+      <workItem from="1753836700645" duration="5557000" />
+      <workItem from="1753842373309" duration="2020000" />
+      <workItem from="1753849633602" duration="17860000" />
+      <workItem from="1753888558669" duration="2129000" />
+      <workItem from="1753911862741" duration="4986000" />
+      <workItem from="1753917371908" duration="6047000" />
+      <workItem from="1753925640628" duration="12785000" />
+      <workItem from="1753945707972" duration="63000" />
+      <workItem from="1753975929221" duration="3187000" />
+      <workItem from="1754010410466" duration="4099000" />
+      <workItem from="1754023936466" duration="8060000" />
+      <workItem from="1754053898243" duration="8674000" />
+      <workItem from="1754098894056" duration="7496000" />
+      <workItem from="1754130479684" duration="11355000" />
+      <workItem from="1754149824030" duration="635000" />
+      <workItem from="1754175512397" duration="3086000" />
+      <workItem from="1754180279183" duration="9514000" />
+      <workItem from="1754196664373" duration="5683000" />
+      <workItem from="1754205454665" duration="41845000" />
+      <workItem from="1754267501492" duration="1935000" />
+      <workItem from="1754269457737" duration="157000" />
+      <workItem from="1754269624499" duration="185000" />
+      <workItem from="1754269872900" duration="5761000" />
+      <workItem from="1754282685146" duration="1323000" />
+      <workItem from="1754284028110" duration="2888000" />
+      <workItem from="1754288346104" duration="3041000" />
+      <workItem from="1754291580351" duration="2457000" />
+      <workItem from="1754294069253" duration="996000" />
+      <workItem from="1754295160706" duration="4456000" />
+      <workItem from="1754312158664" duration="3503000" />
+      <workItem from="1754353445659" duration="744000" />
+      <workItem from="1754392795591" duration="760000" />
+      <workItem from="1754551065505" duration="5806000" />
+      <workItem from="1754612200003" duration="669000" />
+      <workItem from="1755033659429" duration="2095000" />
+      <workItem from="1755035796669" duration="1406000" />
+      <workItem from="1755048551794" duration="4321000" />
+      <workItem from="1755070591938" duration="5128000" />
+      <workItem from="1755135246540" duration="1232000" />
+      <workItem from="1755137875076" duration="1448000" />
+      <workItem from="1755145905903" duration="11494000" />
+      <workItem from="1755438947233" duration="16943000" />
+      <workItem from="1755476201557" duration="4511000" />
+      <workItem from="1755483696758" duration="2278000" />
+      <workItem from="1755491947857" duration="400000" />
+      <workItem from="1755564462495" duration="50000" />
+      <workItem from="1755606533784" duration="9828000" />
+      <workItem from="1755657425462" duration="1106000" />
+      <workItem from="1755661501808" duration="3374000" />
+      <workItem from="1755665151959" duration="8762000" />
+      <workItem from="1755675073411" duration="21251000" />
+      <workItem from="1755878362404" duration="370000" />
+      <workItem from="1756031519927" duration="1296000" />
+      <workItem from="1756097909612" duration="3951000" />
+      <workItem from="1756116768417" duration="5997000" />
+      <workItem from="1756124450775" duration="16532000" />
+      <workItem from="1756164975575" duration="1607000" />
+      <workItem from="1756240482279" duration="30136000" />
+      <workItem from="1756344922220" duration="638000" />
+      <workItem from="1756359615684" duration="3145000" />
+      <workItem from="1756428179982" duration="2341000" />
+      <workItem from="1756446627172" duration="3270000" />
+      <workItem from="1756458799103" duration="719000" />
+      <workItem from="1756459537068" duration="2065000" />
+      <workItem from="1756526376398" duration="309000" />
+      <workItem from="1756875161034" duration="11706000" />
+      <workItem from="1757641785516" duration="6776000" />
+      <workItem from="1757654149873" duration="11445000" />
+      <workItem from="1757722318398" duration="9688000" />
+      <workItem from="1757751961619" duration="1361000" />
+      <workItem from="1757818485912" duration="1461000" />
+      <workItem from="1758085151883" duration="4608000" />
+      <workItem from="1758183010720" duration="6795000" />
+      <workItem from="1758210442338" duration="1518000" />
+      <workItem from="1758244629450" duration="9322000" />
+      <workItem from="1758283102408" duration="1465000" />
+      <workItem from="1758290565291" duration="3680000" />
+      <workItem from="1758707080484" duration="725000" />
+      <workItem from="1758776025065" duration="3710000" />
+      <workItem from="1758811023126" duration="121000" />
+      <workItem from="1759058418091" duration="931000" />
+      <workItem from="1759191252826" duration="3000" />
+      <workItem from="1759254034213" duration="228000" />
+      <workItem from="1759282946206" duration="179000" />
+      <workItem from="1759296500078" duration="680000" />
+      <workItem from="1759297972799" duration="816000" />
+      <workItem from="1759392698416" duration="113000" />
+      <workItem from="1759909916619" duration="1232000" />
+      <workItem from="1760145378658" duration="4521000" />
+      <workItem from="1760196875732" duration="1020000" />
+      <workItem from="1760231733491" duration="1514000" />
+      <workItem from="1760553474754" duration="15000" />
+      <workItem from="1761506305159" duration="1137000" />
+      <workItem from="1762255812979" duration="12701000" />
+      <workItem from="1762318729578" duration="11829000" />
+      <workItem from="1762544850692" duration="8000" />
+      <workItem from="1762545696845" duration="656000" />
+      <workItem from="1762566872545" duration="1224000" />
+      <workItem from="1762824781949" duration="1763000" />
+      <workItem from="1762877279847" duration="1742000" />
+      <workItem from="1762879211784" duration="731000" />
+      <workItem from="1762880373436" duration="1916000" />
+      <workItem from="1763426713281" duration="4842000" />
+      <workItem from="1763536891943" duration="10372000" />
+      <workItem from="1763661583413" duration="27000" />
+      <workItem from="1763862143632" duration="2092000" />
+      <workItem from="1763865708290" duration="417000" />
+      <workItem from="1763898919244" duration="140000" />
+      <workItem from="1763899169800" duration="2917000" />
+      <workItem from="1763987819118" duration="5575000" />
+      <workItem from="1764075571080" duration="1007000" />
+      <workItem from="1764089115483" duration="764000" />
+      <workItem from="1764126422032" duration="4941000" />
+      <workItem from="1764637830677" duration="708000" />
+      <workItem from="1764638957478" duration="3529000" />
+      <workItem from="1764643770815" duration="1416000" />
+      <workItem from="1764651085670" duration="4955000" />
+      <workItem from="1764670885021" duration="2059000" />
+      <workItem from="1764681963130" duration="2544000" />
+      <workItem from="1764685482256" duration="2991000" />
+      <workItem from="1764691544344" duration="104000" />
+      <workItem from="1764738948888" duration="7780000" />
+      <workItem from="1764851277628" duration="8826000" />
+      <workItem from="1765182249553" duration="8749000" />
+      <workItem from="1765195048369" duration="15064000" />
+      <workItem from="1765211130425" duration="5691000" />
+      <workItem from="1765241482979" duration="2322000" />
+      <workItem from="1765345701886" duration="2774000" />
+      <workItem from="1765361865122" duration="9140000" />
+      <workItem from="1765381103649" duration="4215000" />
+      <workItem from="1765552403756" duration="1123000" />
+      <workItem from="1765799274313" duration="4694000" />
+      <workItem from="1765804048167" duration="858000" />
+      <workItem from="1765804940908" duration="12751000" />
+      <workItem from="1765820539342" duration="1946000" />
+      <workItem from="1765854580463" duration="137000" />
+      <workItem from="1765949189020" duration="4281000" />
+      <workItem from="1766399539329" duration="988000" />
+      <workItem from="1766400644246" duration="18230000" />
+      <workItem from="1766421809947" duration="308000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/ai_model/deep_sort-master/deep_sort/tracker.py</url>
+          <line>1</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/item/urls.py</url>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/smart_refrigerator$face_detect.coverage" NAME="face_detect Coverage Results" MODIFIED="1756100345966" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tools" />
+    <SUITE FILE_PATH="coverage/smart_refrigerator$clear_detect_frame.coverage" NAME="clear_detect_frame Coverage Results" MODIFIED="1754054986156" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/smart_refrigerator$json_to_yaml.coverage" NAME="json_to_yaml Coverage Results" MODIFIED="1755878651465" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/smart_refrigerator$detect_utils.coverage" NAME="detect_utils Coverage Results" MODIFIED="1754142480874" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tools" />
+    <SUITE FILE_PATH="coverage/smart_refrigerator$get_face_embedding.coverage" NAME="get_face_embedding Coverage Results" MODIFIED="1756100316339" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tools" />
+    <SUITE FILE_PATH="coverage/smart_refrigerator$save_image.coverage" NAME="save_image Coverage Results" MODIFIED="1753890152835" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tools" />
+    <SUITE FILE_PATH="coverage/smart_refrigerator$serve.coverage" NAME="serve Coverage Results" MODIFIED="1756253680683" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/smart_refrigerator$run_waitress_dev__1_.coverage" NAME="run_waitress_dev (1) Coverage Results" MODIFIED="1756240539081" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/smart_refrigerator$llm_test2.coverage" NAME="llm_test2 Coverage Results" MODIFIED="1766413176002" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/smart_refrigerator$face_utils.coverage" NAME="face_utils Coverage Results" MODIFIED="1755610945587" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
+    <SUITE FILE_PATH="coverage/smart_refrigerator$send_command.coverage" NAME="send_command Coverage Results" MODIFIED="1760150484535" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/smart_refrigerator$make_yolo_training_plot.coverage" NAME="make_yolo_training_plot Coverage Results" MODIFIED="1755445542017" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/smart_refrigerator$llm.coverage" NAME="llm Coverage Results" MODIFIED="1766413744449" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
+    <SUITE FILE_PATH="coverage/smart_refrigerator$run_waitress_dev.coverage" NAME="run_waitress_dev Coverage Results" MODIFIED="1756165867111" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\xiaoh\Downloads\smart_refrigerator" />
+    <SUITE FILE_PATH="coverage/smart_refrigerator$trainer.coverage" NAME="trainer Coverage Results" MODIFIED="1754292957585" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/train" />
+    <SUITE FILE_PATH="coverage/smart_refrigerator$llm_test.coverage" NAME="llm_test Coverage Results" MODIFIED="1764133265583" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/smart_refrigerator$send_camera_stream.coverage" NAME="send_camera_stream Coverage Results" MODIFIED="1765807289089" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/smart_refrigerator$yolo_train.coverage" NAME="yolo_train Coverage Results" MODIFIED="1755152755719" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/smart_refrigerator$yolo_detect.coverage" NAME="yolo_detect Coverage Results" MODIFIED="1754229252336" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tools" />
+    <SUITE FILE_PATH="coverage/smart_refrigerator$cv_draw_and_save.coverage" NAME="cv_draw_and_save Coverage Results" MODIFIED="1756117993370" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tools" />
+    <SUITE FILE_PATH="coverage/smart_refrigerator$detect_item.coverage" NAME="detect_item Coverage Results" MODIFIED="1758161234310" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tools" />
+    <SUITE FILE_PATH="coverage/smart_refrigerator$draw_and_save_image__1_.coverage" NAME="draw_and_save_image (1) Coverage Results" MODIFIED="1756127552580" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tools" />
+    <SUITE FILE_PATH="coverage/smart_refrigerator$dev_server__1_.coverage" NAME="dev_server (1) Coverage Results" MODIFIED="1756254559710" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/smart_refrigerator$detect_face__1_.coverage" NAME="detect_face (1) Coverage Results" MODIFIED="1756138511105" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tools" />
+    <SUITE FILE_PATH="coverage/smart_refrigerator$yolo_training.coverage" NAME="yolo_training Coverage Results" MODIFIED="1755445530196" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/smart_refrigerator$item_detect.coverage" NAME="item_detect Coverage Results" MODIFIED="1755760446088" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tools" />
+    <SUITE FILE_PATH="coverage/smart_refrigerator$send_email_with_food_expired.coverage" NAME="send_email_with_food_expired Coverage Results" MODIFIED="1759810129476" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/smart_refrigerator$manage.coverage" NAME="manage Coverage Results" MODIFIED="1756428955750" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/smart_refrigerator$detect_face.coverage" NAME="detect_face Coverage Results" MODIFIED="1765805428726" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
+    <SUITE FILE_PATH="coverage/smart_refrigerator$views.coverage" NAME="views Coverage Results" MODIFIED="1757645268728" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/monitoring" />
+    <SUITE FILE_PATH="coverage/smart_refrigerator$qq.coverage" NAME="qq Coverage Results" MODIFIED="1763546840679" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+</project>

@@ -1,0 +1,27 @@
+{% extends 'backgraound.html' %}
+
+{% block title %}Hint Message - Smart Refrigerator{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center">
+    <div class="card shadow-lg border-0 rounded-4 position-relative w-100" style="max-width: 640px;">
+        <div class="card-body px-5 py-5 fw-bold" style="padding-top: 4rem; padding-bottom: 4rem;">
+            <div class="text-center mb-4">
+                <i class="bi bi-snow2 fs-1 text-primary"></i>
+                <h2 class="mb-1 text-primary">Smart Refrigerator<br>Monitoring System</h2>
+                <p class="text-muted mb-0">Hint Message</p>
+            </div>
+
+            <div class="alert text-center text-white" style="background-color: var(--ice-blue); border-color: var(--ice-blue);" role="alert">
+                <i class="bi bi-info-circle me-2"></i>
+                {{ message }}
+            </div>
+
+            <a href="{% if id %}{% url redirect id %}{% else %}{% url redirect %}{% endif %}"
+               class="btn btn-primary w-100 mb-3 fw-bold">
+                Continue <i class="bi bi-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

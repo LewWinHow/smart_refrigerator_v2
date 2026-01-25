@@ -1,0 +1,288 @@
+{% extends "navigation_bar.html" %}
+{% block title %}Login Record - Smart Refrigerator{% endblock %}
+{% load static %}
+{% block page_content %}
+    <link rel="stylesheet" href="{% static 'css/color.css' %}">
+    <style>
+        .card-light-blue-bg {
+            background-color: var(--ice-blue); /* 一个浅蓝色 */
+        }
+
+        /* New CSS for hover and selected effects */
+        .card-hover-effect:hover {
+            transform: translateY(-5px); /* Lift effect */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 0 15px rgba(0, 123, 255, 0.5); /* Stronger shadow + Glow effect */
+            border: 3px solid var(--ocean-blue) !important; /* Highlight border */
+            transition: all 0.3s ease; /* Smooth transition */
+            cursor: pointer;
+        }
+    </style>
+
+
+    <div class="container-fluid">
+        <div class="text-center mb-3">
+            <h1 class="mb-0 text-primary">Login Record</h1>
+        </div>
+        <div class="d-flex flex-column flex-md-row align-items-start gap-3 flex-wrap justify-content-start mb-3">
+            <form method="post" class="d-flex align-items-center gap-3">
+                {% csrf_token %}
+                <select class="form-select" id="order_by" name="order_by"
+                        onchange="this.form.submit()" style="width: auto;">
+                    <option value="0" {% if order_by == "0" %}selected{% endif %}>Reverse</option>
+                    <option value="1" {% if order_by == "1" %}selected{% endif %}>Order</option>
+                </select>
+            </form>
+            <form method="post" class="d-flex align-items-center gap-3" id="filter_form">
+                {% csrf_token %}
+                <div class="form-group d-flex align-items-center gap-2">
+                    <select class="form-select" id="filter_select" name="filter_select" style="width: 150px"
+                            onchange="ChangeFilterSelect()">
+                        <option value="1" {% if filter_select == "1" %}selected{% endif %}>All</option>
+                        <option value="2" {% if filter_select == "2" %}selected{% endif %}>Record ID</option>
+                        <option value="3" {% if filter_select == "3" %}selected{% endif %}>Login Info ID</option>
+                        <option value="4" {% if filter_select == "4" %}selected{% endif %}>Status</option>
+                        <option value="5" {% if filter_select == "5" %}selected{% endif %}>Recorded Time</option>
+                    </select>
+                </div>
+                <input type="{% if filter_select == "1" or filter_select == "4" %}hidden{% elif filter_select == "2" or filter_select == "3" %}number{% elif filter_select == "5" %}datetime-local{% else %}hidden{% endif %}"
+                       placeholder="Example: 1"
+                       class="form-control me-2" id="filter_input" name="filter_input" style="width: 200px"
+                       value="{% if filter_input %}{{ filter_input }}{% endif %}">
+                {% if filter_select == "5" %}
+                    <span class="me-2 fw-bold text-primary">to</span>
+                {% endif %}
+                <input type="{% if filter_select == "5" %}datetime-local{% else %}hidden{% endif %}"
+                       class="form-control me-2" id="filter_input_second" name="filter_input_second"
+                       style="width: 200px"
+                       value="{% if filter_input_second %}{{ filter_input_second }}{% endif %}">
+                <select class="form-select" id="status_select" name="status_select"
+                        {% if not filter_select == "4" %}hidden{% endif %} onchange="ChangeFilterSelect()" style="width: 150px">
+                    <option value="1" {% if status_select == "1" %}selected{% endif %}>Successful</option>
+                    <option value="0" {% if status_select == "0" %}selected{% endif %}>Failed</option>
+                </select>
+            </form>
+        </div>
+
+
+    {% if login_record_list %}
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4" id="items_container">
+            {% for login_record in login_record_list %}
+                <div class="col">
+                    <div class="card h-100 shadow-sm card-light-blue-bg card-hover-effect">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary">Record ID: <strong
+                                    class="text-white">{{ login_record.id }}</strong></h5>
+                            <p class="card-text mb-1"><strong class="text-primary">Login Info ID:</strong> <strong
+                                    class="text-white">{{ login_record.login_info.id }}</strong></p>
+                            <p class="card-text mb-1"><strong class="text-primary">IP:</strong> <strong
+                                    class="text-white">{{ login_record.login_ip.ip }}</strong></p>
+                            <p class="card-text mb-1"><strong class="text-primary">System:</strong> <strong
+                                    class="text-white">{{ login_record.login_ip.system }}</strong></p>
+                            <p class="card-text mb-1"><strong class="text-primary">Device:</strong> <strong
+                                    class="text-white">{{ login_record.login_ip.device }}</strong></p>
+                            <p class="card-text mb-1"><strong class="text-primary">Username:</strong> <strong
+                                    class="text-white">{{ login_record.username }}</strong></p>
+                            <p class="card-text mb-1"><strong class="text-primary">Password:</strong> <strong
+                                    class="text-white">{{ login_record.password }}</strong></p>
+                            <p class="card-text mb-1"><strong class="text-primary">Status:</strong> <strong
+                                    class="{% if login_record.status == 1 %}text-success{% else %}text-danger{% endif %}">
+                                {% if login_record.status == 1 %}Successful{% else %}Failed{% endif %}</strong></p>
+                            <p class="card-text mb-1"><strong class="text-primary">Record Time:</strong> <strong
+                                    class="text-white">{{ login_record.record_time }}</strong></p>
+                            {% if permission == 1 %}
+                                <div class="d-flex gap-2 justify-content-center mt-3">
+                                    <a href="{% url 'account:delete_login_record' login_record.id %}"
+                                       class="btn btn-danger btn-sm text-white fw-bold flex-fill"
+                                       onclick="return confirm('Are you sure you want to delete this record?')">Delete</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col">
+                    <div class="card h-100 shadow-sm card-light-blue-bg card-hover-effect">
+                        <div class="card-body">
+                            <div style="background-color: var(--ice-blue)" class="alert text-center text-white fw-bold"
+                                 role="alert">
+                                No Data
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="d-flex justify-content-center mt-4">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    {% if login_record_list.has_previous %}
+                        <li class="page-item">
+                            <form method="post"
+                                  action="{% url "login_log:login_record" 1 %}" class="d-inline">
+                                {% csrf_token %}
+                                <input type="hidden" id="filter_select" name="filter_select"
+                                       value="{% if filter_select %}{{ filter_select }}{% endif %}">
+                                <input type="hidden" id="filter_input" name="filter_input"
+                                       value="{% if filter_input %}{{ filter_input }}{% endif %}">
+                                <input type="hidden" id="filter_input_second" name="filter_input_second"
+                                       value="{% if filter_input_second %}{{ filter_input_second }}{% endif %}">
+                                <input type="hidden" id="status_select" name="status_select"
+                                       value="{% if status_select %}{{ status_select }}{% endif %}">
+                                <input type="hidden" id="order_by" name="order_by"
+                                       value="{% if order_by %}{{ order_by }}{% endif %}">
+                                <input class="btn btn-primary rounded-pill px-4 fw-bold" type="submit" value="First">
+                            </form>
+                        </li>
+                        <li class="page-item">
+                            <form method="post"
+                                  action="{% url "login_log:login_record" login_record_list.previous_page_number %}"
+                                  class="d-inline">
+                                {% csrf_token %}
+                                <input type="hidden" id="filter_select" name="filter_select"
+                                       value="{% if filter_select %}{{ filter_select }}{% endif %}">
+                                <input type="hidden" id="filter_input" name="filter_input"
+                                       value="{% if filter_input %}{{ filter_input }}{% endif %}">
+                                <input type="hidden" id="filter_input_second" name="filter_input_second"
+                                       value="{% if filter_input_second %}{{ filter_input_second }}{% endif %}">
+                                <input type="hidden" id="status_select" name="status_select"
+                                       value="{% if status_select %}{{ status_select }}{% endif %}">
+                                <input type="hidden" id="order_by" name="order_by"
+                                       value="{% if order_by %}{{ order_by }}{% endif %}">
+                                <input class="btn btn-primary rounded-pill px-4 fw-bold" type="submit" value="Previous">
+                            </form>
+                        </li>
+                    {% endif %}
+
+                    <li class="page-item disabled">
+                            <span class="btn btn-primary rounded-pill px-4 fw-bold">
+                                Page {{ login_record_list.number }} of {{ login_record_list.paginator.num_pages }}
+                            </span>
+                    </li>
+
+                    {% if login_record_list.has_next %}
+                        <li class="page-item">
+                            <form method="post"
+                                  action="{% url "login_log:login_record" login_record_list.next_page_number %}"
+                                  class="d-inline">
+                                {% csrf_token %}
+                                <input type="hidden" id="filter_select" name="filter_select"
+                                       value="{% if filter_select %}{{ filter_select }}{% endif %}">
+                                <input type="hidden" id="filter_input" name="filter_input"
+                                       value="{% if filter_input %}{{ filter_input }}{% endif %}">
+                                <input type="hidden" id="filter_input_second" name="filter_input_second"
+                                       value="{% if filter_input_second %}{{ filter_input_second }}{% endif %}">
+                                <input type="hidden" id="status_select" name="status_select"
+                                       value="{% if status_select %}{{ status_select }}{% endif %}">
+                                <input type="hidden" id="order_by" name="order_by"
+                                       value="{% if order_by %}{{ order_by }}{% endif %}">
+                                <input class="btn btn-primary rounded-pill px-4 fw-bold" type="submit" value="Next">
+                            </form>
+                        </li>
+                        <li class="page-item">
+                            <form method="post"
+                                  action="{% url "login_log:login_record" login_record_list.paginator.num_pages %}"
+                                  class="d-inline">
+                                {% csrf_token %}
+                                <input type="hidden" id="filter_select" name="filter_select"
+                                       value="{% if filter_select %}{{ filter_select }}{% endif %}">
+                                <input type="hidden" id="filter_input" name="filter_input"
+                                       value="{% if filter_input %}{{ filter_input }}{% endif %}">
+                                <input type="hidden" id="filter_input_second" name="filter_input_second"
+                                       value="{% if filter_input_second %}{{ filter_input_second }}{% endif %}">
+                                <input type="hidden" id="status_select" name="status_select"
+                                       value="{% if status_select %}{{ status_select }}{% endif %}">
+                                <input type="hidden" id="order_by" name="order_by"
+                                       value="{% if order_by %}{{ order_by }}{% endif %}">
+                                <input class="btn btn-primary rounded-pill px-4 fw-bold" type="submit" value="Last">
+                            </form>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    {% endif %}
+</div>
+
+    <script>
+        let timer;
+        const filterForm = document.getElementById("filter_form");
+        const filterInput = document.getElementById("filter_input");
+        const input2 = document.getElementById("filter_input_second");
+
+        function handleChange() {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                filterForm.submit();
+            }, 600);
+        }
+
+        // 对 datetime-local，建议用 change 事件 + input 事件都监听
+        filterInput.addEventListener("input", handleChange);
+        filterInput.addEventListener("change", handleChange);
+
+        // 对 datetime-local，建议用 change 事件 + input 事件都监听
+        input2.addEventListener("input", handleChange);
+        input2.addEventListener("change", handleChange);
+    </script>
+    <script>
+        function ChangeFilterSelect() {
+            const filterForm = document.getElementById("filter_form");
+            const filterSelect = document.getElementById('filter_select');
+            const filterInput = document.getElementById('filter_input');
+            filterInput.value = null;
+            const filterInputSecond = document.getElementById('filter_input_second');
+            filterInputSecond.value = null;
+            const statusSelect = document.getElementById('status_select');
+
+            if (filterSelect.value == 1) {
+                filterInput.type = "hidden";
+                filterInputSecond.type = "hidden";
+                statusSelect.hidden = true;
+                statusSelect.value = "1";
+            } else if (filterSelect.value == 2 || filterSelect.value == 3) {
+                filterInput.type = "number";
+                filterInputSecond.type = "hidden";
+                statusSelect.hidden = true;
+                statusSelect.value = "1";
+            } else if (filterSelect.value == 4) {
+                filterInput.type = "hidden";
+                filterInputSecond.type = "hidden";
+                statusSelect.hidden = false;
+            } else if (filterSelect.value == 5) {
+                filterInput.type = "datetime-local";
+                filterInputSecond.type = "datetime-local";
+                statusSelect.hidden = true;
+                statusSelect.value = "1";
+            }
+            filterForm.submit();
+        }
+    </script>
+    <script>
+        window.onload = function () {
+            const input = document.getElementById("filter_input");
+
+            // 从 localStorage 读取光标位置
+            const savedPos = localStorage.getItem("cursorPos");
+
+            // 页面加载完成后恢复光标
+            if (savedPos !== null) {
+                setTimeout(() => {
+                    const pos = parseInt(savedPos);
+                    input.focus(); // 让输入框获得焦点
+                    input.setSelectionRange(pos, pos); // 设置光标位置
+                }, 0);
+            }
+
+            // 每次光标移动或点击时保存位置
+            const saveCursor = () => {
+                localStorage.setItem("cursorPos", input.selectionStart);
+            };
+
+            input.addEventListener("click", saveCursor);
+            input.addEventListener("keyup", saveCursor);
+            input.addEventListener("mouseup", saveCursor);
+        };
+    </script>
+
+</div>
+{% endblock %}

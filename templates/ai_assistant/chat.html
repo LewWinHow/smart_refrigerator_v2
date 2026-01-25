@@ -1,0 +1,558 @@
+{% extends 'navigation_bar.html' %}
+{% load static %}
+{% block title %}AI Assistant - Smart Refrigerator{% endblock %}
+{% block page_content %}
+    <link rel="stylesheet" href="{% static 'css/color.css' %}">
+    <style>
+        .card-light-blue-bg {
+            background-color: var(--ice-blue); /* 一个浅蓝色 */
+        }
+        
+        .chat-right {
+            background: linear-gradient(45deg, var(--ocean-blue), var(--deep-blue));
+            color: #fff;
+        }
+
+        /* Prevent page scrolling and handle fixed layout */
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Adjust the navigation bar container for chat */
+        .card-body.px-4.py-4 {
+            height: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+            overflow: hidden !important;
+            padding: 1rem !important; /* Reduced padding for mobile */
+        }
+
+        /* Ensure the outer card from navigation_bar has a fixed height on this page */
+         .mt-5 {
+             margin-top: 4rem !important; /* Adjusted to avoid overlapping with menu button */
+         }
+         
+         .mt-5 > .card.shadow-lg {
+             height: calc(100vh - 5rem) !important;
+             margin-bottom: 0 !important;
+             border-radius: 0.5rem !important;
+             overflow: hidden;
+         }
+ 
+         @media (min-width: 768px) {
+             .mt-5 {
+                 margin-top: 3rem !important;
+             }
+             .mt-5 > .card.shadow-lg {
+                 height: calc(100vh - 6rem) !important;
+                 border-radius: 1rem !important;
+             }
+             .card-body.px-4.py-4 {
+                 padding: 1.5rem !important;
+             }
+         }
+ 
+         /* Title size adjustment */
+         h1.text-primary {
+             font-size: 1.25rem;
+             margin-bottom: 0.25rem !important;
+             padding: 0 40px; /* Space for the menu button on mobile */
+         }
+         @media (min-width: 768px) {
+             h1.text-primary {
+                 font-size: 2.5rem;
+                 margin-bottom: 1rem !important;
+                 padding: 0;
+             }
+         }
+ 
+         /* Footer adjustments */
+         .card-footer {
+             padding: 0.5rem !important;
+         }
+         #audio-device-select {
+             width: auto !important;
+             flex-grow: 1;
+             min-width: 0;
+             font-size: 0.875rem;
+         }
+         .footer-buttons {
+             display: flex;
+             gap: 0.4rem;
+             width: 100%;
+             align-items: center;
+         }
+         @media (min-width: 768px) {
+             .footer-buttons {
+                 width: auto;
+             }
+             #audio-device-select {
+                 width: 200px !important;
+                 flex-grow: 0;
+             }
+         }
+         
+
+
+         /* Chat bubble max-width */
+         #chat-body .d-flex > div:first-child {
+             max-width: 85% !important;
+         }
+         @media (min-width: 768px) {
+             #chat-body .d-flex > div:first-child {
+                 max-width: 75% !important;
+             }
+         }
+
+         /* Align copy button */
+         .btn-primary.btn-sm.rounded-circle {
+             align-self: center;
+             flex-shrink: 0;
+         }
+    </style>
+
+    <div class="container-fluid d-flex flex-column flex-grow-1 overflow-hidden" style="height: 100%;">
+        <div class="text-center mb-3 flex-shrink-0">
+            <h1 class="mb-0 text-primary">AI Assistant</h1>
+        </div>
+        
+        <div class="card shadow-sm card-light-blue-bg mb-0 flex-grow-1 d-flex flex-column overflow-hidden">
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center flex-shrink-0">
+                <h5 class="mb-0">NEIVCE Xiao Xue 小雪</h5>
+                <a href="{% url 'ai_assistant:clear_chat' %}" class="btn btn-light btn-sm" title="Clear chat"
+                   onclick="return confirm('Are you sure you want to clear chat?')">
+                    <i class="bi bi-trash3"></i>
+                </a>
+            </div>
+            <div id="chat-body" class="card-body p-4 flex-grow-1 overflow-y-auto" style="background: linear-gradient(135deg, var(--frost-blue), var(--ice-blue));">
+                {% if chat_list %}
+                    {% for message in chat_list %}
+                        <div class="d-flex mb-3 {% if message.sender == 1 or message.sender == 'user' %}justify-content-end{% else %}justify-content-start{% endif %}">
+                            {% if message.sender == 1 or message.sender == 'user' %}
+                                <button class="btn btn-primary btn-sm rounded-circle me-2" aria-label="Copy" title="Copy" style="width: 28px; height: 28px; padding: 0; display: flex; align-items: center; justify-content: center;">
+                                    <i class="bi bi-clipboard"></i>
+                                </button>
+                            {% endif %}
+                            <div class="rounded-4 p-3 shadow-sm {% if message.sender == 1 or message.sender == 'user' %}chat-right{% else %}bg-white border border-primary-subtle text-dark{% endif %}" style="max-width: 75%; white-space: pre-wrap; word-break: break-word;">{{ message.message }}</div>
+                            {% if message.sender != 1 and message.sender != 'user' %}
+                                <button class="btn btn-primary btn-sm rounded-circle ms-2" aria-label="Copy" title="Copy" style="width: 28px; height: 28px; padding: 0; display: flex; align-items: center; justify-content: center;">
+                                    <i class="bi bi-clipboard"></i>
+                                </button>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="card-footer bg-white p-3 flex-shrink-0">
+                <div class="d-flex flex-column flex-md-row gap-2 align-items-stretch align-items-md-center">
+                    <textarea id="chat-text" name="message" placeholder="Type a message" 
+                              class="form-control flex-grow-1" style="min-height: 44px; max-height: 132px;"></textarea>
+                    <div class="footer-buttons ms-md-auto">
+                        <button class="btn btn-primary" type="button" title="Voice" id="voice-btn">
+                            <i class="bi bi-mic"></i>
+                        </button>
+                        <select class="form-select" id="audio-device-select">
+                            <option value="">Default microphone</option>
+                        </select>
+                        <button class="btn btn-primary d-flex align-items-center justify-content-center" id="chat-send" type="button" title="Send" {% if message_processing %}disabled aria-disabled="true"{% endif %}>
+                            <i class="bi bi-send"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 定时检查输入框内容，如果没有文字则禁用发送按钮
+        setInterval(function () {
+            var textEl = document.getElementById('chat-text');
+            var sendBtn = document.getElementById('chat-send');
+
+            if (textEl.value === "") {
+                sendBtn.disabled = true;
+                sendBtn.setAttribute("aria-disabled", "true");
+            } else {
+                sendBtn.disabled = false;
+                sendBtn.removeAttribute("aria-disabled");
+            }
+        }, 100)
+
+        // 发送按钮点击事件处理
+        document.getElementById('chat-send').addEventListener('click', function () {
+            var voiceBtn = document.getElementById('voice-btn');
+            var textEl = document.getElementById('chat-text');
+            var textValue = (textEl.value || '').trim();
+
+            // 发送时禁用按钮，防止重复提交
+            voiceBtn.disabled = true;
+            voiceBtn.setAttribute("aria-disabled", "true");
+
+            this.disabled = true;
+            this.setAttribute("aria-disabled", "true");
+
+            var chatBody = document.getElementById("chat-body");
+            chatBody.innerHTML = "";
+            
+            // 第一步：将用户消息发送到后端保存并获取更新后的聊天列表
+            fetch('/ai_assistant/get_chat/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify({message: textValue})
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.chat_list != null) {
+                    // 动态渲染聊天气泡
+                    data.chat_list.forEach(chat => {
+                        var isUser = chat.sender === 1 || chat.sender === 'user';
+                        var container = document.createElement('div');
+                        var msgClass = isUser ? 'chat-right' : 'bg-white border border-primary-subtle text-dark';
+                        var justifyClass = isUser ? 'justify-content-end' : 'justify-content-start';
+                        var btnMarginClass = isUser ? 'me-2' : 'ms-2';
+                        
+                        // 构造复制按钮 HTML
+                        var btnHtml = `<button class="btn btn-primary btn-sm rounded-circle ${btnMarginClass}" aria-label="Copy" title="Copy" style="width: 28px; height: 28px; padding: 0; display: flex; align-items: center; justify-content: center;"><i class="bi bi-clipboard"></i></button>`;
+                        // 构造消息内容 HTML
+                        var msgHtml = `<div class="rounded-4 p-3 shadow-sm ${msgClass}" style="max-width: 75%; white-space: pre-wrap; word-break: break-word;">${chat.message}</div>`;
+                        
+                        container.className = `d-flex mb-3 ${justifyClass}`;
+                        // 根据发送者身份决定按钮是在左边还是右边（用户在左，AI在右）
+                        container.innerHTML = isUser ? (btnHtml + msgHtml) : (msgHtml + btnHtml);
+                        
+                        chatBody.appendChild(container);
+                    });
+                    
+                    // 清空输入框并重置高度
+                    if (textEl) {
+                        textEl.value = '';
+                        adjustHeight();
+                        textEl.dispatchEvent(new Event('input'));
+                    }
+                }
+            });
+
+            chatBody.innerHTML = "";
+            
+            // 第二步：调用 LLM 获取 AI 的回复
+            fetch('/ai_assistant/receive_message_and_use_LLM/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify({message: textValue})
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.chat_list != null) {
+                    chatBody.innerHTML = '';
+                    // 重新渲染包含 AI 回复的完整列表
+                    data.chat_list.forEach(chat => {
+                        var isUser = chat.sender === 1 || chat.sender === 'user';
+                        var container = document.createElement('div');
+                        var msgClass = isUser ? 'chat-right' : 'bg-white border border-primary-subtle text-dark';
+                        var justifyClass = isUser ? 'justify-content-end' : 'justify-content-start';
+                        var btnMarginClass = isUser ? 'me-2' : 'ms-2';
+                        var btnHtml = `<button class="btn btn-primary btn-sm rounded-circle ${btnMarginClass}" aria-label="Copy" title="Copy" style="width: 28px; height: 28px; padding: 0; display: flex; align-items: center; justify-content: center;"><i class="bi bi-clipboard"></i></button>`;
+                        var msgHtml = `<div class="rounded-4 p-3 shadow-sm ${msgClass}" style="max-width: 75%; white-space: pre-wrap; word-break: break-word;">${chat.message}</div>`;
+                        
+                        container.className = `d-flex mb-3 ${justifyClass}`;
+                        container.innerHTML = isUser ? (btnHtml + msgHtml) : (msgHtml + btnHtml);
+                        
+                        chatBody.appendChild(container);
+                    });
+                    
+                    // 为新生成的按钮绑定复制功能
+                    if (typeof bindCopy === 'function') bindCopy();
+
+                    // 恢复按钮可用状态
+                    voiceBtn.disabled = false;
+                    voiceBtn.removeAttribute("aria-disabled");
+
+                    this.disabled = false;
+                    this.removeAttribute("aria-disabled");
+                }
+            });
+        });
+
+        // 获取 CSRF Token 的辅助函数
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        var text = document.getElementById('chat-text');
+        var minH = 44, maxH = 132;
+
+        // 自动调整输入框高度
+        function adjustHeight() {
+            text.style.height = 'auto';
+            var h = Math.min(Math.max(text.scrollHeight, minH), maxH);
+            text.style.height = h + 'px';
+        }
+
+        text.addEventListener('input', adjustHeight);
+        adjustHeight();
+
+        // 初始化音频设备列表（麦克风选择）
+        async function initAudioDevices() {
+            var select = document.getElementById('audio-device-select');
+            var voiceBtn = document.getElementById('voice-btn');
+            
+            // 检查是否在安全源下运行（localhost 或 HTTPS），否则无法调用麦克风
+            var isSecureOrigin = location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+            if (!isSecureOrigin) {
+                if (select) select.disabled = true;
+                if (voiceBtn) {
+                    voiceBtn.disabled = true;
+                    voiceBtn.setAttribute('aria-disabled', 'true');
+                }
+                return;
+            }
+            
+            // 检查浏览器是否支持相关 API
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !navigator.mediaDevices.enumerateDevices) {
+                if (select) select.disabled = true;
+                if (voiceBtn) {
+                    voiceBtn.disabled = true;
+                    voiceBtn.setAttribute('aria-disabled', 'true');
+                }
+                return;
+            }
+            
+            if (!select) return;
+            
+            // 渲染麦克风选项
+            function renderOptions(devices) {
+                var previousValue = select.value;
+                while (select.firstChild) {
+                    select.removeChild(select.firstChild);
+                }
+                var defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.textContent = 'Default microphone';
+                select.appendChild(defaultOption);
+                devices.forEach(function (device, index) {
+                    var option = document.createElement('option');
+                    option.value = device.deviceId || '';
+                    option.textContent = device.label || ('Microphone ' + (index + 1));
+                    select.appendChild(option);
+                });
+                // 保持之前的选择
+                if (previousValue) {
+                    var hasMatch = Array.prototype.some.call(select.options, function (opt) {
+                        return opt.value === previousValue;
+                    });
+                    if (hasMatch) select.value = previousValue;
+                }
+            }
+            
+            try {
+                // 请求麦克风权限，获取权限后才能拿到设备标签
+                await navigator.mediaDevices.getUserMedia({audio: true});
+            } catch (e) {
+                console.error('Error accessing microphone:', e);
+            }
+            
+            try {
+                // 枚举所有音频输入设备
+                var devices = await navigator.mediaDevices.enumerateDevices();
+                var audioInputs = devices.filter(function (d) {
+                    return d.kind === 'audioinput';
+                });
+                renderOptions(audioInputs);
+            } catch (e) {
+                console.error('Error enumerating devices:', e);
+            }
+        }
+
+        initAudioDevices();
+
+        // 语音录制逻辑
+        let mediaRecorder;
+        let audioChunks = [];
+        let isRecording = false;
+
+        document.getElementById('voice-btn').addEventListener('click', async function() {
+            const voiceBtn = this;
+            const icon = voiceBtn.querySelector('i');
+            const audioDeviceSelect = document.getElementById('audio-device-select');
+            const selectedDeviceId = audioDeviceSelect.value;
+
+            if (!isRecording) {
+                // 开始录音
+                try {
+                    const constraints = {
+                        audio: selectedDeviceId ? { deviceId: { exact: selectedDeviceId } } : true
+                    };
+                    const stream = await navigator.mediaDevices.getUserMedia(constraints);
+                    mediaRecorder = new MediaRecorder(stream);
+                    audioChunks = [];
+
+                    mediaRecorder.ondataavailable = event => {
+                        audioChunks.push(event.data);
+                    };
+
+                    mediaRecorder.onstop = async () => {
+                        // 录音停止后，将音频数据打包发送
+                        const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                        const formData = new FormData();
+                        formData.append('audio', audioBlob);
+                        formData.append('is_audio', '1');
+
+                        // 处理期间禁用按钮
+                        voiceBtn.disabled = true;
+                        const sendBtn = document.getElementById('chat-send');
+                        sendBtn.disabled = true;
+
+                        try {
+                            const response = await fetch('/ai_assistant/receive_audio_and_convert_to_text/', {
+                                method: 'POST',
+                                headers: {
+                                    'X-CSRFToken': getCookie('csrftoken')
+                                },
+                                body: formData
+                            });
+                            const data = await response.json();
+                            if (data.text) {
+                                // 识别成功后填充输入框并自动发送
+                                const textEl = document.getElementById('chat-text');
+                                textEl.value = data.text;
+                                textEl.dispatchEvent(new Event('input'));
+                                document.getElementById('chat-send').click();
+                            }
+                        } catch (error) {
+                            console.error('Error uploading audio:', error);
+                        } finally {
+                            voiceBtn.disabled = false;
+                        }
+                    };
+
+                    mediaRecorder.start();
+                    isRecording = true;
+                    // 切换为停止图标和红色样式
+                    icon.className = 'bi bi-stop-fill';
+                    voiceBtn.classList.remove('btn-primary');
+                    voiceBtn.classList.add('btn-danger');
+                    voiceBtn.title = 'Stop Recording';
+                } catch (err) {
+                    console.error('Error starting recording:', err);
+                    alert('Could not start recording. Please check microphone permissions.');
+                }
+            } else {
+                // 停止录音
+                mediaRecorder.stop();
+                mediaRecorder.stream.getTracks().forEach(track => track.stop());
+                isRecording = false;
+                // 恢复为麦克风图标和蓝色样式
+                icon.className = 'bi bi-mic';
+                voiceBtn.classList.remove('btn-danger');
+                voiceBtn.classList.add('btn-primary');
+                voiceBtn.title = 'Voice';
+            }
+        });
+
+        // 复制文本到剪贴板
+        function copyText(message) {
+            if (!navigator.clipboard) {
+                // 降级处理：针对不支持 navigator.clipboard 的旧浏览器
+                var textarea = document.createElement('textarea');
+                textarea.value = message || '';
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = '0';
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                return;
+            }
+
+            navigator.clipboard.writeText(message || '');
+        }
+
+        // 设置复制按钮的状态（成功后图标切换）
+        function setCopyIconState(btn) {
+            if (!btn) return;
+            var icon = btn.querySelector('i');
+            if (!icon) return;
+            var originalClass = icon.getAttribute('data-original-class') || icon.className;
+            icon.setAttribute('data-original-class', originalClass);
+            icon.className = 'bi bi-clipboard-check';
+            btn.classList.add('copied');
+            setTimeout(function () {
+                if (!btn.isConnected) return;
+                var restoreClass = icon.getAttribute('data-original-class') || 'bi bi-clipboard';
+                icon.className = restoreClass;
+                btn.classList.remove('copied');
+            }, 3000);
+        }
+
+        // 绑定复制按钮事件
+        function bindCopy() {
+            var container = document.getElementById('chat-body');
+            if (!container) return;
+            var buttons = container.querySelectorAll('.btn-primary.btn-sm.rounded-circle');
+            buttons.forEach(function (btn) {
+                if (btn._copyBound) return;
+                btn._copyBound = true;
+                btn.addEventListener('click', function () {
+                    var row = btn.closest('.d-flex');
+                    var msgEl = row ? row.querySelector('.rounded-4.p-3') : null;
+                    var text = msgEl ? (msgEl.textContent || msgEl.innerText || '') : '';
+                    copyText(text);
+                    setCopyIconState(btn);
+                });
+            });
+        }
+
+        // 导出全局函数
+        window.copyText = copyText;
+        window.bindCopy = bindCopy;
+
+        bindCopy();
+
+        // 聊天内容自动滚动到底部逻辑
+        var chatBody = document.getElementById('chat-body');
+        if (chatBody) {
+            var autoScroll = true;
+            var threshold = 10;
+            var scrollToBottom = function () {
+                chatBody.scrollTop = chatBody.scrollHeight;
+            };
+            scrollToBottom();
+            
+            // 用户手动向上滚动时停止自动滚动
+            chatBody.addEventListener('scroll', function () {
+                var distanceFromBottom = chatBody.scrollHeight - (chatBody.scrollTop + chatBody.clientHeight);
+                autoScroll = distanceFromBottom <= threshold;
+            });
+            
+            // 监听 DOM 变化（新消息加入时），如果处于自动滚动状态则滚到底部
+            var observer = new MutationObserver(function (mutations) {
+                if (!autoScroll) return;
+                var hasNewNode = mutations.some(function (m) {
+                    return m.addedNodes && m.addedNodes.length;
+                });
+                if (hasNewNode) scrollToBottom();
+            });
+            observer.observe(chatBody, {childList: true, subtree: true});
+        }
+    </script>
+{% endblock %}
