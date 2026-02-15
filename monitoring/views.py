@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
 
+import user
 from item.models import Item
 from monitoring.models import MonitoringDisplay, MonitoringRecord
 from temperature_and_humidity.models import TemperatureAndHumidityRecord
@@ -52,6 +53,7 @@ class UpdateMonitoringDisplayAndItem(LoginRequiredMixin, View):
         data = {
             'monitoring_display': monitoring_display.image.url if monitoring_display else None,
             'user': request.user.username,
+            'is_superuser': request.user.is_superuser,
             'item_list': [
                 {
                     'id': item.id,

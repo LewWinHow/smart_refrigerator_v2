@@ -137,8 +137,8 @@
                     }
                     const itemsContainer = document.getElementById('items_container');
 
-                    if (data.item_list == 0) {
-                        if (oldItemArr.length != 0) {
+                    if (data.item_list === 0) {
+                        if (oldItemArr.length !== 0) {
                             itemsContainer.innerHTML = `
                             <div class="col">
                                 <div class="card h-100 shadow-sm card-light-blue-bg card-hover-effect">
@@ -155,7 +155,7 @@
                         }
                     } else {
                         var updateItem = true;
-                        if (oldItemArr.length != 0) {
+                        if (oldItemArr.length !== 0) {
                             var currentItemIDArr = structuredClone(data.item_list)
                             currentItemIDArr.sort((a, b) => a - b);
                             oldItemArr.sort((a, b) => a - b);
@@ -185,7 +185,7 @@
                                         <div class="card-body">
                                               <h5 class="card-title text-primary"><strong class="text-white">${item.item}</strong></h5>
                                               <p class="card-text mb-1"><strong class="text-primary">ID:</strong> <strong class="text-white">${item.id}</strong></p>
-                                              <p class="card-text mb-1"><strong class="text-primary">User:</strong> <strong class="text-white">${item.user === data.user || data.is_superuser ? item.user : 'xxxxxxxxx'}</strong></p>
+                                              <p class="card-text mb-1"><strong class="text-primary">User:</strong> <strong class="text-white">${item.user === data.user || data.is_superuser === true ? item.user : 'xxxxxxxxx'}</strong></p>
                                               <p class="card-text mb-1"><strong class="text-primary">Permissions:</strong> <strong class="text-white">${item.permissions === 1 ? "Public" : "Private"}</strong></p>
                                               <p class="card-text mb-3"><strong class="text-primary">Record Time:</strong> <strong class="text-white">${item.record_time}</strong></p>
                                               ${item.user === data.user ? `

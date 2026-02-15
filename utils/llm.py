@@ -73,7 +73,7 @@ def response_with_title1(message, message_history, user):
     for item in Item.objects.filter(user=user).all():
         user_item_list.append(item.item)
 
-    prompt = f'''你是一个共享的智能冰箱助手小雪（Xiao Xue），用户想要获取冰箱现有的食材，需要分别回答冰箱里所有的食材和用户放入的食材，用人性化的方式回答。需要根据用户输入的语言来回答。\n\n
+    prompt = f'''你是一个共享的智能冰箱助手小雪（Xiao Xue），用户想要获取冰箱现有的食材，需要分别回答冰箱里所有的食材和用户放入的食材，直接用白话文重点回答不要有特殊符号。需要根据用户输入的语言来回答。\n\n
 
                 冰箱里所有的食材：{item_list if item_list else '无'}。\n\n
 
@@ -90,7 +90,7 @@ def response_with_title1(message, message_history, user):
 def response_with_title2(message, message_history):
     ingredient_and_recipe = extract_ingredient_and_recipe(message)
     search_result = search_recipe(ingredient_and_recipe)
-    prompt = f'''你是一个共享的智能冰箱助手小雪（Xiao Xue），你需要推荐食谱与做法给用户，无需根据冰箱现有食材推荐，把句子缩短直接说重点，不要使用表格的形式回答。需要根据用户输入的语言来回答。\n\n
+    prompt = f'''你是一个共享的智能冰箱助手小雪（Xiao Xue），你需要推荐食谱与做法给用户，无需根据冰箱现有食材推荐，把句子缩短直接说重点，不要使用表格的形式回答，直接用白话文重点回答不要有特殊符号。需要根据用户输入的语言来回答。\n\n
 
                 使用搜索引擎根据{search_result}的食材和食谱搜索到的食谱与做法：\n
                 {search_result}\n\n\
@@ -130,7 +130,7 @@ def response_with_title3(message, message_history, user):
     recipes_with_user_item_list = search_recipe(user_item_list)
 
     prompt = f'''你是一个共享的智能冰箱助手小雪（Xiao Xue），你需要推荐食谱与做法给用户，需要根据冰箱所有现有食材和该用户在冰箱放入的食材分别推荐，
-    如果冰箱没有食材或者冰箱有食材但是该用户没有放入任何食材在冰箱侧直接回复冰箱现在没有任何食材或用户没有放入任何食材，把句子缩短直接说重点，不要使用表格的形式回答。
+    如果冰箱没有食材或者冰箱有食材但是该用户没有放入任何食材在冰箱侧直接回复冰箱现在没有任何食材或用户没有放入任何食材，把句子缩短直接说重点，不要使用表格的形式回答，直接用白话文重点回答不要有特殊符号。
     需要根据用户输入的语言来回答。\n\n
 
                 冰箱里所有的食材：{item_list if item_list else '无'}\n\n
@@ -157,7 +157,7 @@ def response_with_title4(message, message_history):
     ingredient_and_recipe = extract_ingredient_and_recipe(message)
     search_result = search_ingredient_storage_method(ingredient_and_recipe)
 
-    prompt = f'''你是一个共享的智能冰箱助手小雪（Xiao Xue），你需要推荐食材的保存方法给用户，把句子缩短直接说重点，不要使用表格的形式回答。需要根据用户输入的语言来回答。\n\n
+    prompt = f'''你是一个共享的智能冰箱助手小雪（Xiao Xue），你需要推荐食材的保存方法给用户，把句子缩短直接说重点，不要使用表格的形式回答，直接用白话文重点回答不要有特殊符号。需要根据用户输入的语言来回答。\n\n
     
                 使用搜索引擎根据{ingredient_and_recipe}的食材搜索到的食材保存方法：\n
                 {search_result}\n\n
@@ -174,7 +174,7 @@ def response_with_title4(message, message_history):
 
 
 def response_with_title5(message, message_history):
-    prompt = f'''你是一个共享的智能冰箱助手小雪（Xiao Xue），用户想要询问关于冰箱，食材和食谱的问题。需要根据用户输入的语言来回答。\n\n
+    prompt = f'''你是一个共享的智能冰箱助手小雪（Xiao Xue），用户想要询问关于冰箱，食材和食谱的问题，直接用白话文重点回答不要有特殊符号。需要根据用户输入的语言来回答。\n\n
 
                 之前的聊天记录：\n
                 {message_history}\n\n
@@ -186,7 +186,7 @@ def response_with_title5(message, message_history):
 
 
 def response_with_title6(message, message_history):
-    prompt = f'''你是一个共享的智能冰箱助手小雪（Xiao Xue），用户想要询问和冰箱，食材和食谱没有关联的问题，只需简单回答用户就好。需要根据用户输入的语言来回答。\n\n
+    prompt = f'''你是一个共享的智能冰箱助手小雪（Xiao Xue），用户想要询问和冰箱，食材和食谱没有关联的问题，只需简单回答用户就好，直接用白话文重点回答不要有特殊符号。需要根据用户输入的语言来回答。\n\n
 
                 之前的聊天记录：\n
                 {message_history}\n\n

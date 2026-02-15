@@ -16,9 +16,8 @@ SILENCE_THRESHOLD = 0.015     # 🔴 关键：控制是否“算说话”
 SILENCE_TIMEOUT = 1.2         # 连续静音多久算说完
 MIN_VOICE_DURATION = 0.8      # 太短不算
 TMP_WAV = "input.wav"
-API_URL = "http://127.0.0.1:8000/receive_audio_and_response/"
+API_URL = "http://127.0.0.1:8000/ai_assistant/receive_audio_and_response/"
 MIC_INDEX = 1                 # 你的麦克风索引
-WAKE_WORD = "小雪"
 
 # ================== Edge TTS ==================
 async def speak(text):
