@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-^!s-fx7crr5qk6z*5&n4x&sut%1f^!tw419awl9cgs)m!5a-*b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["10.147.18.196","127.0.0.1"]
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -145,3 +145,7 @@ EMAIL_HOST_PASSWORD = "kzaj zvse grwo hvvr"
 SESSION_COOKIE_AGE = 24 * 60 * 60
 AUTH_USER_MODEL = "user.User"
 LOGIN_URL = "/account/"
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.ngrok-free.app"
+]

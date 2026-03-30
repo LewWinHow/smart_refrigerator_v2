@@ -131,9 +131,12 @@ class AddUser(LoginRequiredMixin, View):
 
         password = request.POST.get('password') or None
         confirm_password = request.POST.get('confirm_password') or None
-        if verify_password(request, password, 'user:add_user', have_confirm_password=True,
-                           confirm_password=confirm_password) is not True:
-            return verify_password(request, password, confirm_password, 'user:add_user')
+
+        if verify_password(request, password, 'user:add_user') is not True:
+            return verify_password(request, password, 'user:add_user')
+
+        if verify_password(request, confirm_password, 'user:add_user') is not True:
+            return verify_password(request, confirm_password, 'user:add_user')
 
         first_name = request.POST.get('first_name') or None
         last_name = request.POST.get('last_name') or None
@@ -281,10 +284,13 @@ class EditUser(LoginRequiredMixin, View):
 
         confirm_password = request.POST.get('confirm_password') or None
 
-        if password or confirm_password:
-            if verify_password(request, password, 'user:edit_user', have_confirm_password=True,
-                               confirm_password=confirm_password) is not True:
-                return verify_password(request, password, confirm_password, 'user:edit_user')
+        if password is not None and confirm_password is not None:
+            if verify_password(request, password, 'user:add_user') is not True:
+                return verify_password(request, password, 'user:add_user')
+
+            if verify_password(request, confirm_password, 'user:add_user') is not True:
+                return verify_password(request, confirm_password, 'user:add_user')
+
         first_name = request.POST.get('first_name') or None
         last_name = request.POST.get('last_name') or None
         if verify_first_last_name(request, first_name, last_name, 'user:edit_user') is not True:
@@ -394,10 +400,12 @@ class UserInfo(LoginRequiredMixin, View):
 
         confirm_password = request.POST.get('confirm_password') or None
 
-        if password or confirm_password:
-            if verify_password(request, password, 'user:user_info', have_confirm_password=True,
-                               confirm_password=confirm_password) is not True:
-                return verify_password(request, password, confirm_password, 'user:user_info')
+        if password is not None and confirm_password is not None:
+            if verify_password(request, password, 'user:add_user') is not True:
+                return verify_password(request, password, 'user:user_info')
+
+            if verify_password(request, confirm_password, 'user:add_user') is not True:
+                return verify_password(request, confirm_password, 'user:usr_info')
 
         first_name = request.POST.get('first_name') or None
         last_name = request.POST.get('last_name') or None

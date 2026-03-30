@@ -16,7 +16,7 @@ EXPIRATION_DAYS = {
         'banana':3,
         'carrot':14,
         'tomato':5,
-        'egg':3,
+        'Egg':3,
         'chicken':0.,
         '7up':180,
         'coca':180,

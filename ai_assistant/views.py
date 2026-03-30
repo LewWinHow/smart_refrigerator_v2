@@ -152,11 +152,11 @@ class ReceiveAudioAndResponse(APIView):
         text = audio_to_text(audio)
 
         print(text)
-        if not '小豪同学' in text and not '小豪同學' in text:
-            data = {
-                'reply':None
-            }
-            return JsonResponse(data)
+        # if not '小豪同学' in text and not '小豪同學' in text:
+        #     data = {
+        #         'reply':None
+        #     }
+        #     return JsonResponse(data)
 
         title = response_title(text, message_history)
         print(title)

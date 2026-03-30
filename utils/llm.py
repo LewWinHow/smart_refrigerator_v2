@@ -174,7 +174,7 @@ def response_with_title4(message, message_history):
 
 
 def response_with_title5(message, message_history):
-    prompt = f'''你是一个共享的智能冰箱助手小雪（Xiao Xue），用户想要询问关于冰箱，食材和食谱的问题，直接用白话文重点回答不要有特殊符号。需要根据用户输入的语言来回答。\n\n
+    prompt = f'''你是一个共享的智能冰箱助手小雪（Xiao Xue），用户想要询问关于冰箱，食材和食谱的问题，把句子缩短直接说重点，不要使用表格的形式回答，直接用白话文重点回答不要有特殊符号。需要根据用户输入的语言来回答。\n\n
 
                 之前的聊天记录：\n
                 {message_history}\n\n
@@ -186,7 +186,7 @@ def response_with_title5(message, message_history):
 
 
 def response_with_title6(message, message_history):
-    prompt = f'''你是一个共享的智能冰箱助手小雪（Xiao Xue），用户想要询问和冰箱，食材和食谱没有关联的问题，只需简单回答用户就好，直接用白话文重点回答不要有特殊符号。需要根据用户输入的语言来回答。\n\n
+    prompt = f'''你是一个共享的智能冰箱助手小雪（Xiao Xue），用户想要询问和冰箱，食材和食谱没有关联的问题，把句子缩短直接说重点，不要使用表格的形式回答，只需简单回答用户就好，直接用白话文重点回答不要有特殊符号。需要根据用户输入的语言来回答。\n\n
 
                 之前的聊天记录：\n
                 {message_history}\n\n

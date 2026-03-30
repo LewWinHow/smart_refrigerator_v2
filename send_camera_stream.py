@@ -5,7 +5,7 @@ import time
 # 替换为你的 Django 服务器地址
 DJANGO_URL = "http://127.0.0.1:8000/item/receive_and_detect_image/"
 
-cap = cv2.VideoCapture(2)
+cap = cv2.VideoCapture(1)
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 

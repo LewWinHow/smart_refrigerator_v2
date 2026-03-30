@@ -23,108 +23,115 @@
 
 
     <div class="container-fluid">
-    <div class="text-center mb-4">
-        <h1 class="mb-1 text-primary">Monitoring</h1>
-    </div>
-
-    <div class="row mb-4 align-items-center">
-        <div class="col-md-2 order-md-1 text-center" id="temperature_display_container">
-            <i class="bi bi-thermometer-half text-primary display-4"></i>
-            <p class="display-4 text-primary mb-0 fw-bold" id="temperature">
-                {% if temperature_and_humidity %}{{ temperature_and_humidity.temperature|floatformat:1 }}°C{% else %}
-                    -{% endif %}</p>
+        <div class="text-center mb-4">
+            <h1 class="mb-1 text-primary">Monitoring</h1>
         </div>
-        <div class="col-md-8 order-md-2 d-flex justify-content-center">
-            <img id="monitoring_display" src="
 
-                    {% if monitoring_display %}{{ monitoring_display.image.url }}{% else %}https://i.pinimg.com/originals/4b/5d/a6/4b5da63844b3760bb5dcc9ef2e6fa402.gif{% endif %}"
-                 class="img-fluid rounded-4 shadow-sm border"
-                 style="max-height: 480px; object-fit: contain;" alt="Monitoring Display">
-        </div>
-        <div class="col-md-2 order-md-3 text-center" id="humidity_display_container">
-            <i class="bi bi-droplet-half text-primary display-4"></i>
-            <p class="display-4 text-primary mb-0 fw-bold" id="humidity">
-                {% if temperature_and_humidity %}{{ temperature_and_humidity.humidity|floatformat:1 }}%{% else %}
-                    -{% endif %}</p>
-        </div>
-    </div>
+        <div class="row mb-4 align-items-center">
+            <div class="col-md-2 order-md-1 text-center" id="temperature_display_container">
+                <i class="bi bi-thermometer-half text-primary display-4"></i>
+                <p class="display-4 text-primary mb-0 fw-bold" id="temperature">
+                    {% if temperature_and_humidity %}{{ temperature_and_humidity.temperature|floatformat:1 }}
+                        °C{% else %}
+                        -{% endif %}</p>
+            </div>
+            <div class="col-md-8 order-md-2 d-flex justify-content-center">
+                <img id="monitoring_display" src="
 
-    <div class="text-center mb-3">
-        <h1 class="mb-0 text-primary">Item</h1>
-    </div>
-    <div class="row mb-3">
-        <div class="col">
-            <div class="d-flex flex-column flex-md-row align-items-start gap-3 flex-wrap justify-content-start">
-                <form method="post" class="d-flex align-items-center gap-3">
-                    {% csrf_token %}
-                    <select class="form-select" id="order_by" name="order_by"
-                            onchange="this.form.submit()" style="width: auto;">
-                        <option value="0" {% if order_by == "0" %}selected{% endif %}>Reverse</option>
-                        <option value="1" {% if order_by == "1" %}selected{% endif %}>Order</option>
-                    </select>
-                </form>
+
+
+                        {% if monitoring_display %}{{ monitoring_display.image.url }}{% else %}https://i.pinimg.com/originals/4b/5d/a6/4b5da63844b3760bb5dcc9ef2e6fa402.gif{% endif %}"
+                     class="img-fluid rounded-4 shadow-sm border"
+                     style="max-height: 480px; object-fit: contain;" alt="Monitoring Display">
+            </div>
+            <div class="col-md-2 order-md-3 text-center" id="humidity_display_container">
+                <i class="bi bi-droplet-half text-primary display-4"></i>
+                <p class="display-4 text-primary mb-0 fw-bold" id="humidity">
+                    {% if temperature_and_humidity %}{{ temperature_and_humidity.humidity|floatformat:1 }}%{% else %}
+                        -{% endif %}</p>
             </div>
         </div>
-    </div>
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4" id="items_container">
-        {% for item in item_list %}
-            <div class="col">
-                <div class="card h-100 shadow-sm card-light-blue-bg card-hover-effect">
-                    <button type="button" class="btn btn-link p-0" onclick="showImageModal('
-                            {% if item.user == user.username or is_superuser %}{{ item.image.url }}{% else %}https://static.vecteezy.com/system/resources/previews/046/010/545/non_2x/user-icon-simple-design-free-vector.jpg{% endif %}')">
-                        <img src="
 
-                                {% if item.user == user.username or is_superuser %}{{ item.image.url }}{% else %}https://static.vecteezy.com/system/resources/previews/046/010/545/non_2x/user-icon-simple-design-free-vector.jpg{% endif %}"
-                             class="card-img-top" alt="Detected Item" style="height: 150px; object-fit: contain;">
-                    </button>
-                    <div class="card-body">
-                        <h5 class="card-title text-primary"><strong class="text-white">{{ item.item }}</strong></h5>
-                        <p class="card-text mb-1"><strong class="text-primary">ID:</strong> <strong
-                                class="text-white">{{ item.id }}</strong></p>
-                        <p class="card-text mb-1"><strong class="text-primary">User:</strong> <strong
-                                class="text-white">
-                            {% if item.user == user.username or is_superuser %}{{ item.user }}{% else %}
-                                xxxxxxxxx{% endif %}</strong></p>
-                        <p class="card-text mb-1"><strong class="text-primary">Permissions:</strong> <strong
-                                class="text-white">{% if item.permissions == 1 %}Public{% else %}
-                            Private{% endif %}</strong></p>
-                        <p class="card-text mb-3"><strong class="text-primary">Record Time:</strong> <strong
-                                class="text-white">{{ item.record_time }}</strong></p>
-                        {% if item.user == user.username %}
-                            <div class="d-grid">
-                                <a href="{% url 'item:set_item_permissions' item.id %}"
-                                   class="btn btn-warning btn-sm text-white fw-bold"
-                                   onclick="return confirm('Are you sure you want to {% if item.permissions == 1 %}private{% else %}public{% endif %} this item')">
-                                    {% if item.permissions == 1 %}Private{% else %}Public{% endif %}
-                                </a>
-                            </div>
-                        {% else %}
-                            <div class="d-grid">
-                                <span class="text-muted text-center">No Action</span>
-                            </div>
-                        {% endif %}
-                    </div>
+        <div class="text-center mb-3">
+            <h1 class="mb-0 text-primary">Item</h1>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <div class="d-flex flex-column flex-md-row align-items-start gap-3 flex-wrap justify-content-start">
+                    <form method="post" class="d-flex align-items-center gap-3">
+                        {% csrf_token %}
+                        <select class="form-select" id="order_by" name="order_by"
+                                onchange="this.form.submit()" style="width: auto;">
+                            <option value="0" {% if order_by == "0" %}selected{% endif %}>Reverse</option>
+                            <option value="1" {% if order_by == "1" %}selected{% endif %}>Order</option>
+                        </select>
+                    </form>
                 </div>
             </div>
-        {% empty %}
-            <div class="col">
-                <div class="card h-100 shadow-sm card-light-blue-bg card-hover-effect">
-                    <div class="card-body">
-                        <div style="background-color: var(--ice-blue)" class="alert text-center text-white fw-bold"
-                             role="alert">
-                            No Data
+        </div>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4" id="items_container">
+            {% for item in item_list %}
+                <div class="col">
+                    <div class="card h-100 shadow-sm card-light-blue-bg card-hover-effect">
+                        <button type="button" class="btn btn-link p-0" onclick="showImageModal('
+                                {% if item.user == user.username or is_superuser %}{{ item.image.url }}{% else %}https://static.vecteezy.com/system/resources/previews/046/010/545/non_2x/user-icon-simple-design-free-vector.jpg{% endif %}')">
+                            <img src="
+
+
+
+                                    {% if item.user == user.username or is_superuser %}{{ item.image.url }}{% else %}https://static.vecteezy.com/system/resources/previews/046/010/545/non_2x/user-icon-simple-design-free-vector.jpg{% endif %}"
+                                 class="card-img-top" alt="Detected Item" style="height: 150px; object-fit: contain;">
+                        </button>
+                        <div class="card-body">
+                            <h5 class="card-title text-primary"><strong class="text-white">{{ item.item }}</strong></h5>
+                            <p class="card-text mb-1"><strong class="text-primary">ID:</strong> <strong
+                                    class="text-white">{{ item.id }}</strong></p>
+                            <p class="card-text mb-1"><strong class="text-primary">User:</strong> <strong
+                                    class="text-white">
+                                {% if item.user == user.username or is_superuser %}{{ item.user }}{% else %}
+                                    xxxxxxxxx{% endif %}</strong></p>
+                            <p class="card-text mb-1"><strong class="text-primary">Permissions:</strong> <strong
+                                    class="text-white">{% if item.permissions == 1 %}Public{% else %}
+                                Private{% endif %}</strong></p>
+                            <p class="card-text mb-3"><strong class="text-primary">Record Time:</strong> <strong
+                                    class="text-white">{{ item.record_time }}</strong></p>
+                            {% if item.user == user.username %}
+                                <div class="d-grid">
+                                    <a href="{% url 'item:set_item_permissions' item.id %}"
+                                       class="btn btn-warning btn-sm text-white fw-bold"
+                                       onclick="return confirm('Are you sure you want to {% if item.permissions == 1 %}private{% else %}public{% endif %} this item')">
+                                        {% if item.permissions == 1 %}Private{% else %}Public{% endif %}
+                                    </a>
+                                </div>
+                            {% else %}
+                                <div class="d-grid">
+                                    <span class="text-muted text-center">No Action</span>
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
-    </div>
+            {% empty %}
+                <div class="col">
+                    <div class="card h-100 shadow-sm card-light-blue-bg card-hover-effect">
+                        <div class="card-body">
+                            <div style="background-color: var(--ice-blue)" class="alert text-center text-white fw-bold"
+                                 role="alert">
+                                No Data
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 
     <script>
-        var oldItemArr = [];
+        var itemArr = [];
+        var orderBy = {{ order_by }}
 
         function updateMonitoringDisplayAndItem() {
+            var update = false
             fetch('{% url 'monitoring:update_monitoring_display_and_item' %}')
                 .then(response => response.json())
                 .then(data => {
@@ -137,9 +144,8 @@
                     }
                     const itemsContainer = document.getElementById('items_container');
 
-                    if (data.item_list === 0) {
-                        if (oldItemArr.length !== 0) {
-                            itemsContainer.innerHTML = `
+                    if (data.item_list.length === 0) {
+                        itemsContainer.innerHTML = `
                             <div class="col">
                                 <div class="card h-100 shadow-sm card-light-blue-bg card-hover-effect">
                                     <div class="card-body">
@@ -151,32 +157,32 @@
                                 </div>
                             </div>
                         `;
-                        oldItemArr = []
-                        }
+                        itemArr = [];
                     } else {
-                        var updateItem = true;
-                        if (oldItemArr.length !== 0) {
-                            var currentItemIDArr = structuredClone(data.item_list)
-                            currentItemIDArr.sort((a, b) => a - b);
-                            oldItemArr.sort((a, b) => a - b);
-
-                            for (let i = 0; i < currentItemIDArr.length; i++) {
-                                if (currentItemIDArr[i].image != oldItemArr[i]) {
-                                    oldItemArr = [];
-                                    return
-                                } else {
-                                    updateItem = false
+                        if (itemArr.length === data.item_list.length) {
+                            if (orderBy === "0") {
+                                for (i = itemArr.length - 1; i >= 0; i--) {
+                                    if (itemArr[i].image !== data.item_list[i].image) {
+                                        update = true;
+                                    }
+                                }
+                            } else {
+                                for (i = 0; i < itemArr.length; i++) {
+                                    if (itemArr[i].image !== data.item_list[i].image) {
+                                        update = true;
+                                    }
                                 }
                             }
 
+                        } else {
+                            update = true;
                         }
-                        if (updateItem == false) {
-                            return;
-                        }
-                        itemsContainer.innerHTML = '';
-                        data.item_list.forEach(item => {
-                            oldItemArr.push(item.image)
-                            let itemHtml = `
+
+                        if (update === true) {
+                            itemArr = data.item_list
+                            itemsContainer.innerHTML = '';
+                            data.item_list.forEach(item => {
+                                let itemHtml = `
                                 <div class="col">
                                      <div class="card h-100 shadow-sm card-light-blue-bg card-hover-effect">
                                           <button type="button" class="btn btn-link p-0" onclick="showImageModal('${item.user === data.user || data.is_superuser ? item.image : 'https://static.vecteezy.com/system/resources/previews/046/010/545/non_2x/user-icon-simple-design-free-vector.jpg'}')">                                               <img src="${item.user === data.user || data.is_superuser ? item.image : 'https://static.vecteezy.com/system/resources/previews/046/010/545/non_2x/user-icon-simple-design-free-vector.jpg'}"
@@ -190,7 +196,7 @@
                                               <p class="card-text mb-3"><strong class="text-primary">Record Time:</strong> <strong class="text-white">${item.record_time}</strong></p>
                                               ${item.user === data.user ? `
                                                   <div class="d-grid">
-                                                      <a href="/set_item_permissions/${item.id}"
+                                                      <a href="/item/set_item_permissions/${item.id}"
                                                          class="btn btn-warning btn-sm text-white fw-bold"
                                                          onclick="return confirm('Are you sure you want to ${item.permissions === 1 ? "private" : "public"} this item?')">
                                                           ${item.permissions === 1 ? "Private" : "Public"}
@@ -205,8 +211,9 @@
                                     </div>
                                 </div>
                             `;
-                            itemsContainer.innerHTML += itemHtml;
-                        });
+                                itemsContainer.innerHTML += itemHtml;
+                            });
+                        }
                     }
                 });
         }

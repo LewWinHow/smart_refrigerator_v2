@@ -51,8 +51,8 @@ def verify_first_last_name(request, first_name, last_name, redirect, id=None):
 
 def verify_phone(request, phone, redirect, id=None):
     pattern = r'^[1-9][0-9]{7,14}$'
-    if not phone or not re.match(pattern, phone):
-        return hint_message(request, 'Invalid phon!', redirect, id)
+    if phone is not None and not re.match(pattern, phone):
+        return hint_message(request, 'Invalid phone!', redirect, id)
 
     return True
 

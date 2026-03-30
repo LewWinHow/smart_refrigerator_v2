@@ -22,7 +22,7 @@ MIC_INDEX = 1                 # 你的麦克风索引
 # ================== Edge TTS ==================
 async def speak(text):
     print("🤖 AI:", text)
-    tts = edge_tts.Communicate(text, voice="zh-CN-XiaoxiaoNeural")
+    tts = edge_tts.Communicate(text, voice="zh-CN-XiaoxiaoNeural")  # 女声（最推荐）
     await tts.save("reply.mp3")
     wave_obj = sa.WaveObject.from_wave_file(
         convert_mp3_to_wav("reply.mp3")
