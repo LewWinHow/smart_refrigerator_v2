@@ -133,6 +133,7 @@ class ReceiveAudioAndConvertToText(LoginRequiredMixin, APIView):
 
 class ReceiveAudioAndResponse(APIView):
     def post(self, request):
+        user = request.user
         # 判断是不是语音请求（可选）
         is_audio = request.POST.get('is_audio') == '1'
 
