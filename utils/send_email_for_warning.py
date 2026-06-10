@@ -8,7 +8,7 @@ def send_email_for_warning(email, image_path):
     <html>
       <body>
         <p>Monitoring Image:</p>
-        <img src="cid:my_photo">  <!-- 注意这里用 cid -->
+        <img src="cid:my_photo">  <!-- Note: use cid here -->
       </body>
     </html>
     """
@@ -16,10 +16,10 @@ def send_email_for_warning(email, image_path):
     msg = EmailMultiAlternatives(subject, text_content, 'xiaohao6070@gmail.com', [email])
     msg.attach_alternative(html_content, "text/html")
 
-    # 嵌入图片
+    # Embed image
     with open(image_path, "rb") as f:
         image = MIMEImage(f.read())
-        image.add_header("Content-ID", "<my_photo>")  # 与 HTML 中的 cid 对应
+        image.add_header("Content-ID", "<my_photo>")  # Corresponds to cid in HTML
         msg.attach(image)
 
     msg.send()

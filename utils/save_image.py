@@ -5,20 +5,20 @@ from smart_refrigerator_v2 import settings
 
 def save_image(image_file, sub_folder='uploads'):
     """
-    保存上传的图像到 MEDIA_ROOT/sub_folder/ 下
-    返回相对路径 (相对于 MEDIA_ROOT)，用于 ImageField 或数据库存储
+    Save uploaded image to MEDIA_ROOT/sub_folder/
+    Returns relative path (relative to MEDIA_ROOT), used for ImageField or database storage
     """
-    # 保存目录
+    # Save directory
     save_dir = os.path.join(settings.MEDIA_ROOT, sub_folder)
     os.makedirs(save_dir, exist_ok=True)
 
-    # 获取扩展名
-    ext = os.path.splitext(image_file.name)[1]  # 用 .name 取文件名
+    # Get extension
+    ext = os.path.splitext(image_file.name)[1]  # Use .name to get filename
     unique_filename = f"{uuid.uuid4().hex}{ext}"
 
-    # 保存文件
+    # Save file
     fs = FileSystemStorage(location=save_dir)
     fs.save(unique_filename, image_file)
 
-    # 返回相对路径（相对于 MEDIA_ROOT）
+    # Return relative path (relative to MEDIA_ROOT)
     return os.path.join(sub_folder, unique_filename).replace("\\", "/")

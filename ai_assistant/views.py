@@ -17,8 +17,7 @@ class GetChat(LoginRequiredMixin, APIView):
         is_superuser = user.is_superuser
         if Chat.objects.filter(user=user).exists() is False:
             message = Chat.objects.create(
-                message="Hi, I'm your NEIVCE smart refrigerator assistant Xiao Hou. How can I help you?\n"
-                        "你好， 我是你的新纪元技职与推广教育学院智能冰箱助手小豪有什么我可以帮到你的呢？", user=user, sender=2)
+                message="Hi, I'm your NEIVCE smart refrigerator assistant Xiao Xue. How can I help you?", user=user, sender=2)
             message.save()
 
         chat_list = Chat.objects.filter(user=user).all()
@@ -34,9 +33,9 @@ class GetChat(LoginRequiredMixin, APIView):
         if message is None:
             return JsonResponse({'error': 'Empty message'}, status=400)
 
-        # 保存用户消息
+        # Save user message
         Chat.objects.create(message=message, user=user, sender=1)
-        # 保存处理中的 AI 回复
+        # Save processing AI response
         Chat.objects.create(message='⚫⚫⚫', user=user, sender=2)
 
         chat_list = Chat.objects.filter(user=user).all()
@@ -72,9 +71,9 @@ class ReceiveMessageAndUseLLM(LoginRequiredMixin, APIView):
         message_history = ''
         for chat_history in chat_list:
             if chat_history.sender == 1:
-                message_history += f'''用户输入：{chat_history.message}\n'''
+                message_history += f'''User input: {chat_history.message}\n'''
             elif chat_history.sender == 2:
-                message_history += f'''你回应：{chat_history.message}\n'''
+                message_history += f'''You responded: {chat_history.message}\n'''
 
         title = response_title(message, message_history)
 
@@ -116,10 +115,10 @@ class ReceiveMessageAndUseLLM(LoginRequiredMixin, APIView):
 
 class ReceiveAudioAndConvertToText(LoginRequiredMixin, APIView):
     def post(self, request):
-        # 判断是不是语音请求（可选）
+        # Check if it's an audio request (optional)
         is_audio = request.POST.get('is_audio') == '1'
 
-        # 文件在 request.FILES 里
+        # File is in request.FILES
         audio = request.FILES.get('audio') or None
         if not audio:
             return JsonResponse({'error': 'No audio file'}, status=400)
@@ -134,10 +133,10 @@ class ReceiveAudioAndConvertToText(LoginRequiredMixin, APIView):
 class ReceiveAudioAndResponse(APIView):
     def post(self, request):
         user = request.user
-        # 判断是不是语音请求（可选）
+        # Check if it's an audio request (optional)
         is_audio = request.POST.get('is_audio') == '1'
 
-        # 文件在 request.FILES 里
+        # File is in request.FILES
         audio = request.FILES.get('audio') or None
         if not audio:
             return JsonResponse({'error': 'No audio file'}, status=400)
@@ -146,14 +145,14 @@ class ReceiveAudioAndResponse(APIView):
         message_history = ''
         for voice_interaction in voice_interaction_list:
             if voice_interaction.sender == 1:
-                message_history += f'''用户输入：{voice_interaction.message}\n'''
+                message_history += f'''User input: {voice_interaction.message}\n'''
             elif voice_interaction.sender == 2:
-                message_history += f'''你回应：{voice_interaction.message}\n'''
+                message_history += f'''You responded: {voice_interaction.message}\n'''
 
         text = audio_to_text(audio)
 
         print(text)
-        # if not '小豪同学' in text and not '小豪同學' in text:
+        # if not 'Xiao Hao Classmate' in text and not 'Xiao Hao Classmate' in text:
         #     data = {
         #         'reply':None
         #     }

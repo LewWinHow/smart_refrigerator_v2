@@ -8,21 +8,21 @@ import simpleaudio as sa
 import time
 import os
 
-# ================== 配置 ==================
+# ================== Configuration ==================
 SAMPLE_RATE = 16000
 CHANNELS = 1
 BLOCK_DURATION = 0.1          # 100ms
-SILENCE_THRESHOLD = 0.015     # 🔴 关键：控制是否“算说话”
-SILENCE_TIMEOUT = 1.2         # 连续静音多久算说完
-MIN_VOICE_DURATION = 0.8      # 太短不算
+SILENCE_THRESHOLD = 0.015     # 🔴 Key: Controls whether it's considered "speaking"
+SILENCE_TIMEOUT = 1.2         # How long continuous silence counts as finished
+MIN_VOICE_DURATION = 0.8      # Too short doesn't count
 TMP_WAV = "input.wav"
-API_URL = "http://127.0.0.1:8000/ai_assistant/receive_audio_and_response/"
-MIC_INDEX = 1                 # 你的麦克风索引
+API_URL = "http://127.0.0.1:8100/ai_assistant/receive_audio_and_response/"
+MIC_INDEX = 1                 # Your microphone index
 
 # ================== Edge TTS ==================
 async def speak(text):
     print("🤖 AI:", text)
-    tts = edge_tts.Communicate(text, voice="zh-CN-XiaoxiaoNeural")  # 女声（最推荐）
+    tts = edge_tts.Communicate(text, voice="zh-CN-XiaoxiaoNeural")  # Female voice (most recommended)
     await tts.save("reply.mp3")
     wave_obj = sa.WaveObject.from_wave_file(
         convert_mp3_to_wav("reply.mp3")
@@ -69,7 +69,7 @@ def listen_and_record():
 
             if volume > SILENCE_THRESHOLD:
                 if not recording:
-                    print("🗣️ Detected speak，start recording")
+                    print("🗣️ Detected speech, start recording")
                     recording = True
                 frames.append(data.copy())
                 voice_time += BLOCK_DURATION
@@ -78,18 +78,18 @@ def listen_and_record():
                 if recording:
                     silence_time += BLOCK_DURATION
                     if silence_time >= SILENCE_TIMEOUT:
-                        print("🛑 Detected mute，stop recording")
+                        print("🛑 Detected silence, stop recording")
                         break
 
     if voice_time < MIN_VOICE_DURATION:
-        print("🤫 Sound too short，delete it")
+        print("🤫 Sound too short, delete it")
         return None
 
     audio = np.concatenate(frames, axis=0)
     wav.write(TMP_WAV, SAMPLE_RATE, audio)
     return TMP_WAV
 
-# ================== 主循环 ==================
+# ================== Main loop ==================
 async def main():
     await speak("I'm ready.")
 
@@ -115,12 +115,12 @@ if __name__ == "__main__":
 
 # import sounddevice as sd
 # import numpy as np
-# duration = 5 # 秒
+# duration = 5 # seconds
 # fs = 16000
-# print("开始录音...")
+# print("Start recording...")
 # mydata = sd.rec(int(duration * fs), samplerate=fs, channels=1,
-# dtype='float32', device=1) # 改成你的索引
+# dtype='float32', device=1) # Change to your index
 # sd.wait()
-# print("录音结束，最大音量:", np.max(np.abs(mydata)))
+# print("Recording finished, max volume:", np.max(np.abs(mydata)))
 
 

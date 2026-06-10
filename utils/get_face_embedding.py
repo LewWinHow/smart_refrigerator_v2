@@ -10,48 +10,48 @@ from insightface.app import FaceAnalysis
 
 from user.models import FaceID
 
-# 使用 buffalo_l 模型组合
+# Use buffalo_l model combination
 
 app = FaceAnalysis(
     name='buffalo_s',
     providers=['CUDAExecutionProvider', 'CPUExecutionProvider']
 )
-# ctx_id=0 表示用 GPU；ctx_id=-1 表示用 CPU
+# ctx_id=0 means use GPU; ctx_id=-1 means use CPU
 app.prepare(ctx_id=0, det_size=(640, 640))
 
 
 def get_face_embedding(image):
     """
-    从图像文件提取人脸 embedding
-    参数可以是:
-      - 文件路径 (str)
-      - Django 上传文件对象 (request.FILES['profile_image'])
+    Extract face embedding from image file
+    Parameters can be:
+      - File path (str)
+      - Django uploaded file object (request.FILES['profile_image'])
     """
-    # 如果传的是文件路径
+    # If it's a file path
     if image is None:
         return None
 
     if isinstance(image, str):
         img = cv2.imread(image)
 
-    # 如果传的是 Django 的上传文件对象
+    # If it's a Django uploaded file object
     else:
         file_bytes = np.asarray(bytearray(image.read()), dtype=np.uint8)
         img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
-        image.seek(0)  # 读完后复位，否则后面request.FILES可能用不到文件
+        image.seek(0)  # Reset after reading, otherwise request.FILES might not be able to use the file later
 
     faces = app.get(img)
 
     if len(faces) == 0:
-        return None  # 没检测到人脸
+        return None  # No face detected
 
-    # 取第一张人脸
+    # Take the first face
     face = faces[0]
-    return face.normed_embedding  # 512维向量
+    return face.normed_embedding  # 512-dimensional vector
 
 
 def is_same_person(emb1, emb2, threshold=0.6):
-    # 欧氏距离
+    # Euclidean distance
     dist = np.linalg.norm(emb1 - emb2)
     return dist < threshold, dist
 

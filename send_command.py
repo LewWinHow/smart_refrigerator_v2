@@ -5,48 +5,48 @@ import requests
 import logging
 from datetime import datetime
 
-# ========== Django 初始化 ==========
+# ========== Django Initialization ==========
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'smart_refrigerator_v2.settings')
 django.setup()
 
-from monitoring.models import Item  # 确保模型路径正确
+from monitoring.models import Item  # Ensure model path is correct
 
-# ========== 树莓派 Flask 接口 ==========
-FLASK_URL = "http://10.147.18.220:5005/receive"  # 你的树莓派 Flask IP + 端口
+# ========== Raspberry Pi Flask Interface ==========
+FLASK_URL = "http://10.147.18.220:5005/receive"  # Your Raspberry Pi Flask IP + Port
 
 
 def send_to_raspberry(data):
-    """发送控制信号到树莓派"""
+    """Send control signal to Raspberry Pi"""
     try:
         response = requests.post(FLASK_URL, json=data, timeout=3)
-        response.raise_for_status()  # 若返回非 200，将触发异常
+        response.raise_for_status()  # If return is not 200, will trigger exception
         resp_json = response.json()
-        logging.info(f"✅ 树莓派响应: {resp_json}")
-        print("✅ 树莓派响应:", resp_json)
+        logging.info(f"✅ Raspberry Pi response: {resp_json}")
+        print("✅ Raspberry Pi response:", resp_json)
     except requests.exceptions.RequestException as e:
-        logging.error(f"❌ 发送失败: {e}")
-        print("❌ 发送失败:", e)
+        logging.error(f"❌ Send failed: {e}")
+        print("❌ Send failed:", e)
 
 
 def check_and_control_fans():
-    """检查数据库状态并决定是否开关风扇"""
+    """Check database status and decide whether to turn fans on/off"""
     try:
         item_list = Item.objects.all()
         has_items = item_list.exists()
     except Exception as e:
-        logging.error(f"⚠️ 数据库访问失败: {e}")
-        print("⚠️ 数据库访问失败:", e)
+        logging.error(f"⚠️ Database access failed: {e}")
+        print("⚠️ Database access failed:", e)
         return
 
-    # 判断逻辑
+    # Judgment logic
     if has_items:
         fan_1 = False
         fan_2 = False
-        state = "检测到记录 -> 关闭风扇"
+        state = "Record detected -> Turn off fans"
     else:
         fan_2 = False
         fan_1 = False
-        state = "无记录 -> 打开风扇"
+        state = "No record -> Turn on fans"
 
     data = {"fan_1": fan_1, "fan_2": fan_2}
 
@@ -54,13 +54,13 @@ def check_and_control_fans():
 
 
 def main():
-    """主循环，每 5 秒检测一次"""
-    print("🌀 启动定时任务，每 5 秒检测一次...")
-    logging.info("=== 风扇自动控制任务启动 ===")
+    """Main loop, detect every 5 seconds"""
+    print("🌀 Start scheduled task, detect every 5 seconds...")
+    logging.info("=== Fan automatic control task started ===")
 
     while True:
         check_and_control_fans()
-        time.sleep(5)  # 间隔 5 秒
+        time.sleep(5)  # Interval 5 seconds
 
 
 if __name__ == "__main__":

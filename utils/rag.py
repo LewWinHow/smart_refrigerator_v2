@@ -2,7 +2,7 @@ from ddgs import DDGS
 
 
 def search_recipe(ingredients, max_results=5):
-    query = f'{" ".join(ingredients)} 家常菜 做法 怎么做'
+    query = f'{" ".join(ingredients)} home cooking recipe how to make'
 
     recipes = []
     try:
@@ -20,8 +20,8 @@ def search_recipe(ingredients, max_results=5):
     return recipes
 
 
-def search_ingredient_storage_method(ingredients, language='中文', max_results=5):
-    query = f'{" ".join(ingredients)} 保存方法 储存 冰箱 保鲜'
+def search_ingredient_storage_method(ingredients, language='English', max_results=5):
+    query = f'{" ".join(ingredients)} storage method preservation refrigerator fresh keeping'
 
     recipes = []
     try:

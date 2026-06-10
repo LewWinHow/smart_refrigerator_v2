@@ -14,7 +14,7 @@ def verify_ip(request):
     login_info = LoginIP.objects.filter(ip=current_ip).first()
     if login_info:
         if login_info.is_blacklist:
-            return hint_message(request, 'Your IP has been blocked!', 'account:account')
+            return hint_message(request, 'Your IP has been blocked!', 'account:login')
 
     return True
 

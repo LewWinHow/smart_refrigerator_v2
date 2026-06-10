@@ -6,30 +6,30 @@ from django.conf import settings
 from ultralytics import YOLO
 import django
 
-# 初始化 Django
+# Initialize Django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'smart_refrigerator_v2.settings')
 django.setup()
 
 # -----------------------------
-# 1. 加载 YOLO 模型 (水果检测)
+# 1. Load YOLO model (fruit detection)
 # -----------------------------
 model = YOLO(os.path.join(settings.BASE_DIR, 'ai_model', 'yolo_model', 'yolo26m.pt'))
 
 # -----------------------------
-# 2. 指定只检测的类别
+# 2. Specify classes to detect only
 # -----------------------------
 ALLOWED_CLASSES = [46, 47, 48, 49, 50, 51, 52, 53, 54, 55]
 
 def detect_item(image):
     """
-    返回:
-        label: 检测到的类别名称
-        xyxy: 边框坐标 [x1, y1, x2, y2]
-    如果没有检测到，则返回 (None, None)
+    Returns:
+        label: Detected class name
+        xyxy: Bounding box coordinates [x1, y1, x2, y2]
+    If nothing is detected, returns (None, None)
     """
 
     # -----------------------------
-    # 读取图像
+    # Read image
     # -----------------------------
     if hasattr(image, 'read'):
         image_bytes = image.read()
@@ -44,7 +44,7 @@ def detect_item(image):
         raise ValueError("Unsupported input type for image")
 
     # -----------------------------
-    # YOLO 推理（限制类别）
+    # YOLO inference (limit classes)
     # -----------------------------
     results = model(cv_image, classes=ALLOWED_CLASSES)[0]
 
@@ -52,7 +52,7 @@ def detect_item(image):
         return None, None
 
     # -----------------------------
-    # 找置信度最高的框
+    # Find the box with highest confidence
     # -----------------------------
     best_box, max_conf = None, 0
     for box in results.boxes:
@@ -65,7 +65,7 @@ def detect_item(image):
         return None, None
 
     # -----------------------------
-    # 获取标签和坐标
+    # Get label and coordinates
     # -----------------------------
     label_index = int(best_box.cls.item())
     label = model.names[label_index]
@@ -75,7 +75,7 @@ def detect_item(image):
 
 
 # -----------------------------
-# 测试
+# Test
 # -----------------------------
 if __name__ == '__main__':
     label, box = detect_item(r"C:\Users\xiaoh\Downloads\apple_158989157.jpg")

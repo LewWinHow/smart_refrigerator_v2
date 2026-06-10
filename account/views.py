@@ -127,7 +127,7 @@ class ForgotPassword(View):
 
             context = {'verification_code': verification_code}
             send_email('Verification Code',
-                       r'C:\Users\xiaoh\Downloads\smart_refrigerator - Copy\templates\verification_code_email.html',
+                       r'C:\Users\xiaoh\Downloads\smart_refrigerator_v2\templates\verification_code_email.html',
                        context,
                        [email])
 
@@ -278,26 +278,26 @@ class Register(View):
 
 class GetCaptcha(View):
     def get(self, request):
-        # 1. 生成随机验证码
+        # 1. Generate random captcha
         chars = string.ascii_uppercase + string.digits
         captcha_text = ''.join(random.choice(chars) for _ in range(4))
 
-        # 2. 存入 session（用于校验）
+        # 2. Store in session (for verification)
         request.session['captcha'] = captcha_text
 
-        # 3. 创建图片
+        # 3. Create image
         width, height = 120, 40
         image = Image.new('RGB', (width, height), 'white')
         draw = ImageDraw.Draw(image)
 
-        # 字体（Windows 可以用这个）
+        # Font (can use this on Windows)
         font = ImageFont.truetype('arial.ttf', 28)
 
-        # 4. 绘制验证码文字
+        # 4. Draw captcha text
         for i, char in enumerate(captcha_text):
             draw.text((10 + i * 25, 5), char, font=font, fill='black')
 
-        # 5. 干扰线
+        # 5. Interference lines
         for _ in range(5):
             x1 = random.randint(0, width)
             y1 = random.randint(0, height)
@@ -305,7 +305,7 @@ class GetCaptcha(View):
             y2 = random.randint(0, height)
             draw.line((x1, y1, x2, y2), fill='gray')
 
-        # 6. 返回图片
+        # 6. Return image
         from io import BytesIO
         buffer = BytesIO()
         image.save(buffer, 'PNG')
