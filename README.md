@@ -65,4 +65,3 @@ Open `http://127.0.0.1:8100/`. The home page redirects to the account login page
 - Place the required YOLO weights in the model directory expected by the detection code. InsightFace may download its model on first use.
 - Shelf-life values are configured in `send_food_expire_email.py`; run that script to check items and send email reminders.
 - Keep passwords, API credentials, and Django secret keys out of source control. Review Django's debug and host settings before deployment.
-![52259221868_b757d6cdea_k.jpg](../52259221868_b757d6cdea_k.jpg)
