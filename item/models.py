@@ -1,8 +1,4 @@
-import pickle
-
-import numpy as np
 from django.db import models
-from user.models import User
 
 
 class Item(models.Model):
@@ -14,5 +10,3 @@ class Item(models.Model):
 
     class Meta:
         db_table = 'item'
-
-

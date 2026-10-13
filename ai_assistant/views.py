@@ -4,7 +4,6 @@ from django.shortcuts import render, redirect
 from django.views import View
 from rest_framework.views import APIView
 
-import ai_assistant
 from ai_assistant.models import Chat, VoiceInteractionChat
 from utils.audio_to_text import audio_to_text
 from utils.llm import *
@@ -17,18 +16,20 @@ class GetChat(LoginRequiredMixin, APIView):
         is_superuser = user.is_superuser
         if Chat.objects.filter(user=user).exists() is False:
             message = Chat.objects.create(
-                message="Hi, I'm your NEIVCE smart refrigerator assistant Xiao Xue. How can I help you?", user=user, sender=2)
+                message="Hi, I'm your NEIVCE smart refrigerator assistant Xiao Xue. How can I help you?", user=user,
+                sender=2)
             message.save()
 
         chat_list = Chat.objects.filter(user=user).all()
         message_precessing = False
         if Chat.objects.last().message == '⚫⚫⚫':
             message_precessing = True
-        return render(request, 'ai_assistant/chat.html', {'chat_list': chat_list, 'is_superuser': is_superuser, 'message_processing':message_precessing})
+        return render(request, 'ai_assistant/chat.html',
+                      {'chat_list': chat_list, 'is_superuser': is_superuser, 'message_processing': message_precessing})
 
     def post(self, request):
         user = request.user
-        message = (request.data.get('message','') or '').strip() or None
+        message = (request.data.get('message', '') or '').strip() or None
 
         if message is None:
             return JsonResponse({'error': 'Empty message'}, status=400)
@@ -63,7 +64,7 @@ class ReceiveMessageAndUseLLM(LoginRequiredMixin, APIView):
     def post(self, request):
 
         user = request.user
-        message = (request.data.get('message','') or '').strip() or None
+        message = (request.data.get('message', '') or '').strip() or None
         if message is None:
             return redirect('ai_assistant:get_chat')
 
@@ -80,7 +81,7 @@ class ReceiveMessageAndUseLLM(LoginRequiredMixin, APIView):
         response = ''
         if title == '1':
             print('1')
-            response = response_with_title1(message , message_history, user)
+            response = response_with_title1(message, message_history, user)
         elif title == '2':
             print('2')
             response = response_with_title2(message, message_history)
@@ -113,6 +114,7 @@ class ReceiveMessageAndUseLLM(LoginRequiredMixin, APIView):
         }
         return JsonResponse(data)
 
+
 class ReceiveAudioAndConvertToText(LoginRequiredMixin, APIView):
     def post(self, request):
         # Check if it's an audio request (optional)
@@ -129,6 +131,7 @@ class ReceiveAudioAndConvertToText(LoginRequiredMixin, APIView):
             'text': text
         }
         return JsonResponse(data)
+
 
 class ReceiveAudioAndResponse(APIView):
     def post(self, request):
@@ -164,7 +167,7 @@ class ReceiveAudioAndResponse(APIView):
         response = ''
         if title == '1':
             print('1')
-            response = response_with_title1(text , message_history, user)
+            response = response_with_title1(text, message_history, user)
         elif title == '2':
             print('2')
             response = response_with_title2(text, message_history)

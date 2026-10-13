@@ -1,11 +1,5 @@
-import random
-import string
-from datetime import datetime
-
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.mail import send_mail
 from django.shortcuts import redirect, render
-from django.contrib.auth import authenticate, login, logout
 from django.views import View
 
 from utils.get_data import get_device_info, get_data_by_page
@@ -27,7 +21,7 @@ class IPOfLogin(LoginRequiredMixin, View):
         login_ip_list = get_data_by_page(login_ip_list, page)[0]
         is_paginated = get_data_by_page(login_ip_list, page)[1]
         return render(request, 'login_log/login_ip.html',
-                      {'login_ip_list': login_ip_list, 'is_paginated': is_paginated,'is_superuser': is_superuser})
+                      {'login_ip_list': login_ip_list, 'is_paginated': is_paginated, 'is_superuser': is_superuser})
 
     def post(self, request, page=1):
 
@@ -63,7 +57,7 @@ class IPOfLogin(LoginRequiredMixin, View):
         return render(request, 'login_log/login_ip.html',
                       {'login_ip_list': login_ip_list,
                        'is_paginated': is_paginated, 'filter_select': filter_select, 'filter_input': filter_input,
-                       'blacklist_select': blacklist_select, 'order_by': order_by,'is_superuser':is_superuser})
+                       'blacklist_select': blacklist_select, 'order_by': order_by, 'is_superuser': is_superuser})
 
 
 class RecordOfLogin(LoginRequiredMixin, View):
@@ -79,7 +73,8 @@ class RecordOfLogin(LoginRequiredMixin, View):
         login_record_list = get_data_by_page(login_record_list, page)[0]
         is_paginated = get_data_by_page(login_record_list, page)[1]
         return render(request, 'login_log/login_record.html',
-                      {'login_record_list': login_record_list, 'is_paginated': is_paginated, 'order_by':'0','is_superuser':is_superuser})
+                      {'login_record_list': login_record_list, 'is_paginated': is_paginated, 'order_by': '0',
+                       'is_superuser': is_superuser})
 
     def post(self, request, page=1):
 
@@ -129,7 +124,7 @@ class RecordOfLogin(LoginRequiredMixin, View):
                       {'login_record_list': login_record_list,
                        'is_paginated': is_paginated, 'filter_select': filter_select, 'filter_input': filter_input,
                        'filter_input_second': filter_input_second, 'status_select': status_select,
-                       'order_by': order_by,'is_superuser':is_superuser })
+                       'order_by': order_by, 'is_superuser': is_superuser})
 
 
 class IPBlacklist(LoginRequiredMixin, View):

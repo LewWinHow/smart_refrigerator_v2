@@ -9,7 +9,7 @@ from datetime import datetime
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'smart_refrigerator_v2.settings')
 django.setup()
 
-from monitoring.models import Item  # Ensure model path is correct
+from item.models import Item  # Ensure model path is correct
 
 # ========== Raspberry Pi Flask Interface ==========
 FLASK_URL = "http://10.147.18.220:5005/receive"  # Your Raspberry Pi Flask IP + Port

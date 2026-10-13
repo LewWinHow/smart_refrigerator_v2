@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
 import os
+import os
+
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+
+import django
 import sys
 
 from smart_refrigerator_v2 import settings

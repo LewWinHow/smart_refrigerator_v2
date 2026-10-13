@@ -109,18 +109,3 @@ if __name__ == "__main__":
     asyncio.run(main())
 
 
-
-
-
-
-# import sounddevice as sd
-# import numpy as np
-# duration = 5 # seconds
-# fs = 16000
-# print("Start recording...")
-# mydata = sd.rec(int(duration * fs), samplerate=fs, channels=1,
-# dtype='float32', device=1) # Change to your index
-# sd.wait()
-# print("Recording finished, max volume:", np.max(np.abs(mydata)))
-
-

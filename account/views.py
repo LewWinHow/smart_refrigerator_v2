@@ -2,12 +2,10 @@ import random
 import string
 from datetime import datetime
 from PIL import Image, ImageDraw, ImageFont
-from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.views import View
-from django.views.decorators.csrf import csrf_exempt
 
 from login_log.models import LoginRecord
 from user.models import FaceID
@@ -16,6 +14,7 @@ from utils.get_face_embedding import get_face_embedding
 from utils.save_profile_image import save_profile_image
 from utils.send_email import send_email
 from utils.verify import *
+
 
 class Login(View):
 
