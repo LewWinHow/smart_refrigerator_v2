@@ -16,7 +16,7 @@ class GetChat(LoginRequiredMixin, APIView):
         is_superuser = user.is_superuser
         if Chat.objects.filter(user=user).exists() is False:
             message = Chat.objects.create(
-                message="Hi, I'm your NEIVCE smart refrigerator assistant Xiao Xue. How can I help you?", user=user,
+                message="Hi, I'm your smart refrigerator assistant. How can I help you?", user=user,
                 sender=2)
             message.save()
 
@@ -155,11 +155,6 @@ class ReceiveAudioAndResponse(APIView):
         text = audio_to_text(audio)
 
         print(text)
-        # if not 'Xiao Hao Classmate' in text and not 'Xiao Hao Classmate' in text:
-        #     data = {
-        #         'reply':None
-        #     }
-        #     return JsonResponse(data)
 
         title = response_title(text, message_history)
         print(title)
